@@ -24,7 +24,7 @@ public class Tram {
     private String depo;
 
     @Column(name = "number_of_tram")
-    private int numberOfTram;
+    private String numberOfTram;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "tram", cascade = CascadeType.ALL)
     private List<Ticket> tickets;

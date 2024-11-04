@@ -1,7 +1,7 @@
 create table trams(
 	id bigint auto_increment primary key,
     depo varchar(100) not null,
-    number_of_tram int
+    number_of_tram varchar(10)
 );
 
 create table tracks(

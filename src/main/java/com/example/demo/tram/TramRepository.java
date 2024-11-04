@@ -8,9 +8,9 @@ import java.util.List;
 @Repository
 public interface TramRepository extends JpaRepository<Tram, Long> {
 
-     Tram findByDepoAndNumberOfTram(String depo, int numberOfTram);
+     Tram findByDepoAndNumberOfTram(String depo, String numberOfTram);
 
-     Long findIdByDepoAndNumberOfTram(String depo, int numberOfTram);
+     Long findIdByDepoAndNumberOfTram(String depo, String numberOfTram);
 
      List<Tram> findByDepo(String depo);
 
