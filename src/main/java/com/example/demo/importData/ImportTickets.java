@@ -3,6 +3,7 @@ package com.example.demo.importData;
 import com.example.demo.ticket.TicketService;
 import com.example.demo.tram.TramService;
 import lombok.RequiredArgsConstructor;
+import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -11,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @RequiredArgsConstructor
 public class ImportTickets {
@@ -29,11 +31,11 @@ public class ImportTickets {
                     continue;
                 }
 
-                LocalDate day = row.getCell(1).getLocalDateTimeCellValue().toLocalDate();
+                LocalDateTime day = row.getCell(1).getLocalDateTimeCellValue();
                 String depo = row.getCell(2).getStringCellValue();
                 int numberOfTram = (int) row.getCell(3).getNumericCellValue();
 
-                ticketService.add(day, tramService.getByDepoAndNumberOfTram(depo, numberOfTram));
+                ticketService.add(day.toLocalDate(), tramService.getByDepoAndNumberOfTram(depo, numberOfTram));
             }
 
         } catch (IOException e) {

@@ -8,13 +8,19 @@
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
-<div class="mb-3">
-    <label for="formFileMultiple" class="form-label">Upload files</label>
-    <input class="form-control" type="file" id="formFileMultiple" multiple>
+
+
+<div class="my-5">
+    <div class="mx-auto w-25 " style="max-width:100%;">
+        <form th:action="@{/v1/tickets}" th:method="POST" enctype="multipart/form-data">
+            <div class="input-group">
+                <label>File:</label><br>
+                <input type="file" class="form-control" id="file" name="file" >
+                <button class="btn btn-outline-secondary" type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
 </div>
 
-<p class="d-inline-flex gap-1">
-    <a href="/download" class="btn active" role="button" data-bs-toggle="button" aria-pressed="true">Download</a>
-</p>
 </body>
 </html>

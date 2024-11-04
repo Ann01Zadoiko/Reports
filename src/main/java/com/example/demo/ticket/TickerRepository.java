@@ -17,8 +17,8 @@ public interface TickerRepository extends JpaRepository<Ticket, Long> {
     List<Ticket> findByDay(LocalDate day);
 
 
-    @Query("from Ticket t join Tram tr where tr.depo=?")
-    List<Ticket> findByDepo(String depo);
+ //   @Query("from Ticket t join Tram tr where tr.depo=?")
+  //  List<Ticket> findByDepo(String depo);
 
     //count by day
     //count by month
