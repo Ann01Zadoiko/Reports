@@ -36,7 +36,15 @@ public class ImportTickets {
                     continue;
                 }
 
-                String dayString = row.getCell(1).getStringCellValue();
+                String rowDay = row.getCell(1).getStringCellValue();
+                String dayString;
+
+                if (rowDay.isEmpty()){
+                    break;
+                } else {
+                    dayString = rowDay;
+                }
+
                 String depo = row.getCell(2).getStringCellValue();
                 String numberOfTram = row.getCell(3).getStringCellValue();
 
@@ -62,7 +70,15 @@ public class ImportTickets {
                     continue;
                 }
 
-                String dayString = row.getCell(1).getStringCellValue();
+                String rowDay = row.getCell(1).getStringCellValue();
+                String dayString;
+
+                if (rowDay.isEmpty()){
+                    break;
+                } else {
+                    dayString = rowDay;
+                }
+
                 String depo = row.getCell(2).getStringCellValue();
                 String numberOfTram = row.getCell(3).getStringCellValue();
 
