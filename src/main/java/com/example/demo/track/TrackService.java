@@ -26,11 +26,15 @@ public class TrackService {
         trackRepository.deleteAll();
     }
 
-    public Track getByTramAndDepo(Tram tram, LocalDate day){
+    public Track getByTramAndDay(Tram tram, LocalDate day){
         return trackRepository.findByTramAndDay(tram, day);
     }
 
     public List<Track> getByDay(LocalDate day){
         return trackRepository.findByDay(day);
+    }
+
+    public Track getByDayAndIdTram(LocalDate day, Long id){
+        return trackRepository.findByDayAndIdTram(day, id);
     }
 }

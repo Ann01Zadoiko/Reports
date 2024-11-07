@@ -1,9 +1,12 @@
 package com.example.demo.tram;
 
+import com.example.demo.counter.CounterTickets;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
 
 @RequiredArgsConstructor
 @Controller
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class TramController {
 
     public final TramService tramService;
+    private final CounterTickets counterTickets;
 
     //list
     @GetMapping("/")
