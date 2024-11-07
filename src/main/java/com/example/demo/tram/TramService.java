@@ -3,7 +3,9 @@ package com.example.demo.tram;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -40,5 +42,9 @@ public class TramService {
 
     public Tram getById(Long id){
         return tramRepository.findById(id).get();
+    }
+
+    public Set<Tram> getByDay(LocalDate day){
+        return tramRepository.findByDay(day);
     }
 }

@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface TrackRepository extends JpaRepository<Track, Long> {
 
-    List<Track> findByTrack(int track);
+    List<Track> findByTrack(String track);
 
     List<Track> findByDay(LocalDate day);
 

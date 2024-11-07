@@ -22,7 +22,7 @@ public class Track {
     private Long id;
 
     @Column(name = "track")
-    private int track;
+    private String track;
 
     @Column(name = "day")
     private LocalDate day;

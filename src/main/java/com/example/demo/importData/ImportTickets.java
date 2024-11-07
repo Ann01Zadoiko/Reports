@@ -1,5 +1,6 @@
 package com.example.demo.importData;
 
+import com.example.demo.ticket.Ticket;
 import com.example.demo.ticket.TicketService;
 import com.example.demo.tram.TramService;
 import lombok.RequiredArgsConstructor;
@@ -20,12 +21,13 @@ import java.time.format.DateTimeFormatter;
 
 @Service
 @RequiredArgsConstructor
-public class ImportTickets {
+public class ImportTickets implements Import{
 
     private final TramService tramService;
     private final TicketService ticketService;
 
-    public void importExcelToData(MultipartFile file){
+    @Override
+    public void importExcelToDataXlsx(MultipartFile file, String depo, LocalDate day){
 
         try (InputStream inputStream = file.getInputStream()){
             XSSFWorkbook workbook = new XSSFWorkbook(inputStream);
@@ -45,13 +47,17 @@ public class ImportTickets {
                     dayString = rowDay;
                 }
 
-                String depo = row.getCell(2).getStringCellValue();
+                String depoT = row.getCell(2).getStringCellValue();
                 String numberOfTram = row.getCell(3).getStringCellValue();
 
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-                LocalDateTime day = LocalDateTime.parse(dayString, formatter);
+                LocalDateTime date = LocalDateTime.parse(dayString, formatter);
 
-                ticketService.add(day.toLocalDate(), tramService.getByDepoAndNumberOfTram(depo, numberOfTram));
+                Ticket ticket = new Ticket();
+                ticket.setDay(date.toLocalDate());
+                ticket.setTram(tramService.getByDepoAndNumberOfTram(depoT, numberOfTram));
+
+                ticketService.add(ticket);
             }
 
         } catch (IOException e) {
@@ -59,7 +65,8 @@ public class ImportTickets {
         }
     }
 
-    public void importExcelToDataXls(MultipartFile file){
+    @Override
+    public void importExcelToDataXls(MultipartFile file, String depo, LocalDate day){
 
         try (InputStream inputStream = file.getInputStream()){
             HSSFWorkbook workbook = new HSSFWorkbook(inputStream);
@@ -79,13 +86,17 @@ public class ImportTickets {
                     dayString = rowDay;
                 }
 
-                String depo = row.getCell(2).getStringCellValue();
+                String depoT = row.getCell(2).getStringCellValue();
                 String numberOfTram = row.getCell(3).getStringCellValue();
 
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-                LocalDateTime day = LocalDateTime.parse(dayString, formatter);
+                LocalDateTime date = LocalDateTime.parse(dayString, formatter);
 
-                ticketService.add(day.toLocalDate(), tramService.getByDepoAndNumberOfTram(depo, numberOfTram));
+                Ticket ticket = new Ticket();
+                ticket.setDay(date.toLocalDate());
+                ticket.setTram(tramService.getByDepoAndNumberOfTram(depoT, numberOfTram));
+
+                ticketService.add(ticket);
             }
 
         } catch (IOException e) {

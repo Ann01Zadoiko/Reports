@@ -6,7 +6,7 @@ create table trams(
 
 create table tracks(
 	id bigint auto_increment primary key,
-    track int,
+    track varchar(10),
     day date,
     id_tram bigint,
     foreign key (id_tram) references reports.trams(id)

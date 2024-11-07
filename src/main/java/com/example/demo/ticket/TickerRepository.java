@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public interface TickerRepository extends JpaRepository<Ticket, Long> {
@@ -15,6 +16,11 @@ public interface TickerRepository extends JpaRepository<Ticket, Long> {
     List<Ticket> findByTramAndDay(Tram tram, LocalDate day);
 
     List<Ticket> findByDay(LocalDate day);
+
+ //   @Query(nativeQuery = true, value = "select tr.* from reports.tickets t join reports.trams tr on t.id_tram=tr.id where tr.depo= :")
+  //  Set<Tram> findTramsByDay(LocalDate day);
+
+    List<Ticket> findByTram(Tram tram);
 
 
  //   @Query("from Ticket t join Tram tr where tr.depo=?")
