@@ -17,10 +17,27 @@ public class TramService {
         tramRepository.save(tram);
     }
 
-    public void isExist(String depo, String numberOfTram){
+    public boolean isExist(String depo, String numberOfTram){
+
+        List<Tram> trams = tramRepository.findByDepo(depo);
+        for (Tram tram:  trams){
+            if (tram.getNumberOfTram().equals(numberOfTram)){
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public Tram getByDepoAndNumberOfTram(String depo, String numberOfTram){
+
+        if (!isExist(depo, numberOfTram)){
+            Tram tram = new Tram();
+            tram.setNumberOfTram(numberOfTram);
+            tram.setDepo(depo);
+            tramRepository.save(tram);
+        }
+
         return tramRepository.findByDepoAndNumberOfTram(depo, numberOfTram);
     }
 
