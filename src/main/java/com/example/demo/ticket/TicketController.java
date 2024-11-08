@@ -29,6 +29,6 @@ public class TicketController {
             importTickets.importExcelToDataXlsx(file,null,null);
         }
 
-        return "redirect:/v1/tickets";
+        return "/v1/tickets?success";
     }
 }

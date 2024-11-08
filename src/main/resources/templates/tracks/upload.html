@@ -9,26 +9,45 @@
 </head>
 <body>
 
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" >Маршрути</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/v1/download/">Звіти</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/v1/tickets/">Квітки</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
 <div class="my-5">
     <div class="mx-auto w-25 " style="max-width:100%;">
         <div class="container">
-            <h1>Upload Track File</h1>
+            <h1 class="mb-5">Завантажити файл</h1>
             <form th:action="@{/v1/tracks/}" method="POST" enctype="multipart/form-data">
-                <div class="form-group">
-                    <label for="depo">Depo </label>
-                    <select id="depo" name="depo" class="form-select" aria-label="Default select example">
+                <div class="form-group mb-3">
+                    <label class="form-label" for="depo">Депо:</label>
+                    <select id="depo" name="depo" class="form-select mb-3" aria-label="Default select example">
                         <option th:value="'Депо №1 трамвай'" th:text="'Депо №1 трамвай'"></option>
                         <option th:value="'Депо №2 трамвай'" th:text="'Депо №2 трамвай'"></option>
                         <option th:value="'Троллейбусное депо'" th:text="'Троллейбусное депо'"></option>
                     </select>
 
-                    <label for="day">Day</label>
-                    <input type="date" id="day" name="day" class="form-control">
+                    <label class="form-label" for="day">День:</label>
+                    <input type="date" id="day" name="day" class="form-control mb-3">
 
-                    <label for="file">Select file:</label>
-                    <input type="file" id="file" name="file" class="form-control" required multiple>
+                    <label class="form-label" for="file">Оберіть файл:</label>
+                    <input type="file" id="file" name="file" class="form-control mb-3" required multiple>
                 </div>
-                <button type="submit" class="btn btn-primary">Upload</button>
+                <button type="submit" class="btn btn-primary">Завантажити</button>
             </form>
         </div>
     </div>
