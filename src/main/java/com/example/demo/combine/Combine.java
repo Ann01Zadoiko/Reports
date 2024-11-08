@@ -19,21 +19,6 @@ public class Combine {
 
     private final TicketService ticketService;
     private final TrackService trackService;
-    private final TramService tramService;
-
-//    public void combineTrackAndTicket(LocalDate day){
-//        Set<Tram> trams = tramService.getByDay(day);
-//        Ticket ticket;
-//        Track track;
-//
-//        for (Tram tram: trams){
-//            ticket = ticketService.getByTramAndDay(tram, day).get(0);
-//            track = trackService.getByTramAndDepo(tram, day);
-//
-//            ticket.setTrack(track);
-//            ticketService.add(ticket);
-//        }
-//    }
 
     public void combineLong(LocalDate day){
         List<Ticket> tickets = ticketService.getByDay(day);

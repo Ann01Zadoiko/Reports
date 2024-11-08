@@ -32,13 +32,15 @@
     <div class="mx-auto w-25 " style="max-width:100%;">
         <div class="container">
             <h1 class="mb-5">Скачати файл</h1>
-            <form th:action="@{/v1/download/}" method="POST" enctype="multipart/form-data">
+            <form th:action="@{/v1/reports/}" method="POST" enctype="multipart/form-data">
                 <div class="form-group mb-3">
                     <label for="day" class="form-label">День:</label>
                     <input type="date" id="day" name="day" class="form-control">
                 </div>
-                <button type="submit" class="btn btn-primary">Скачати</button>
+                <button type="submit" class="btn btn-primary mb-5">Скачати</button>
             </form>
+            <h1 class="mb-3">Доступні дати:</h1>
+            <p th:each="day : ${days}" th:text="${day}"></p>
         </div>
     </div>
 </div>

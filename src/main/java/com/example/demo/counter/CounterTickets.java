@@ -1,5 +1,6 @@
 package com.example.demo.counter;
 
+import com.example.demo.combine.Combine;
 import com.example.demo.ticket.Ticket;
 import com.example.demo.ticket.TicketService;
 import com.example.demo.track.Track;
@@ -28,6 +29,7 @@ public class CounterTickets implements Counter{
     private final TicketService ticketService;
     private final TramService tramService;
     private final TrackService trackService;
+    private final Combine combine;
 
 
     //use
@@ -38,14 +40,12 @@ public class CounterTickets implements Counter{
         return ticketService.getByDay(day).size();
     }
 
-    public int countByDayAndTram(Tram tram, LocalDate day){
-        return ticketService.getByTramAndDay(tram, day).size();
-    }
-
-
     //use
     @Override
     public Map<Tram, Integer> countMapOfTram(LocalDate day, int amount) {
+
+        combine.combineLong(day);
+
         Map<Tram, Integer> map = new HashMap<>();
 
         for (Tram tram: tramService.getByDay(day)){
@@ -56,10 +56,10 @@ public class CounterTickets implements Counter{
         return map;
     }
 
-    public String  createTable(LocalDate day)  throws IOException {
+    public String createTable(LocalDate day)  throws IOException {
 
         StringBuilder builder = new StringBuilder()
-                .append("./src/main/resources/general_")
+                .append("./src/main/resources/reports/general_")
                 .append(day)
                 .append(".xlsx");
 

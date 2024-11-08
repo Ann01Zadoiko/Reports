@@ -36,8 +36,8 @@ public class TrackController {
             importTracks.importExcelToDataXlsx(file, depo, day);
         }
 
-        combine.combineLong(day);
+       // combine.combineLong(day);
 
-        return "redirect:/v1/tracks";
+        return "/v1/tracks?success";
     }
 }

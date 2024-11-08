@@ -50,4 +50,8 @@ public class TicketService {
         return tickerRepository.findByTram(tram);
     }
 
+    public List<LocalDate> getLocalDate(){
+        return tickerRepository.findDistinctDays();
+    }
+
 }
