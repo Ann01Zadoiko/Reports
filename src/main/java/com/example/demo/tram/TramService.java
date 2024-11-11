@@ -41,10 +41,6 @@ public class TramService {
         return tramRepository.findByDepoAndNumberOfTram(depo, numberOfTram);
     }
 
-    public Long getIdByDepoAndNumberOfTram(String depo, String numberOfTram){
-        return tramRepository.findIdByDepoAndNumberOfTram(depo, numberOfTram);
-    }
-
     public List<Tram> getByDepo(String depo){
         return tramRepository.findByDepo(depo);
     }

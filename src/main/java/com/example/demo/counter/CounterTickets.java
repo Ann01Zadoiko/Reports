@@ -1,9 +1,7 @@
 package com.example.demo.counter;
 
 import com.example.demo.combine.Combine;
-import com.example.demo.ticket.Ticket;
 import com.example.demo.ticket.TicketService;
-import com.example.demo.track.Track;
 import com.example.demo.track.TrackService;
 import com.example.demo.tram.Tram;
 import com.example.demo.tram.TramService;
@@ -18,9 +16,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 @Service
 @RequiredArgsConstructor

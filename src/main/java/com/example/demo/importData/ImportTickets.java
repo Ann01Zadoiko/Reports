@@ -4,11 +4,9 @@ import com.example.demo.ticket.Ticket;
 import com.example.demo.ticket.TicketService;
 import com.example.demo.tram.TramService;
 import lombok.RequiredArgsConstructor;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,11 +25,19 @@ public class ImportTickets implements Import{
     private final TicketService ticketService;
 
     @Override
-    public void importExcelToDataXlsx(MultipartFile file, String depo, LocalDate day){
+    public void importExcelToData(MultipartFile file, String depo, LocalDate day){
 
         try (InputStream inputStream = file.getInputStream()){
-            XSSFWorkbook workbook = new XSSFWorkbook(inputStream);
-            XSSFSheet sheet = workbook.getSheetAt(0);
+
+            Sheet sheet;
+
+            if (file.getOriginalFilename().endsWith(".xls")){
+                HSSFWorkbook workbook = new HSSFWorkbook(inputStream);
+                sheet = workbook.getSheetAt(0);
+            } else {
+                XSSFWorkbook workbook = new XSSFWorkbook(inputStream);
+                sheet = workbook.getSheetAt(0);
+            }
 
             for(Row row: sheet) {
                 if (row.getRowNum() == 0){
@@ -59,46 +65,6 @@ public class ImportTickets implements Import{
 
                 ticketService.add(ticket);
             }
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
-    public void importExcelToDataXls(MultipartFile file, String depo, LocalDate day){
-
-        try (InputStream inputStream = file.getInputStream()){
-            HSSFWorkbook workbook = new HSSFWorkbook(inputStream);
-            HSSFSheet sheet = workbook.getSheetAt(0);
-
-            for(Row row: sheet) {
-                if (row.getRowNum() == 0){
-                    continue;
-                }
-
-                String rowDay = row.getCell(1).getStringCellValue();
-                String dayString;
-
-                if (rowDay.isEmpty()){
-                    break;
-                } else {
-                    dayString = rowDay;
-                }
-
-                String depoT = row.getCell(2).getStringCellValue();
-                String numberOfTram = row.getCell(3).getStringCellValue();
-
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-                LocalDateTime date = LocalDateTime.parse(dayString, formatter);
-
-                Ticket ticket = new Ticket();
-                ticket.setDay(date.toLocalDate());
-                ticket.setTram(tramService.getByDepoAndNumberOfTram(depoT, numberOfTram));
-
-                ticketService.add(ticket);
-            }
-
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

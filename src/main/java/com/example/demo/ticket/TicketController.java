@@ -1,7 +1,6 @@
 package com.example.demo.ticket;
 
 import com.example.demo.importData.ImportTickets;
-import com.example.demo.tram.TramService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -23,12 +22,7 @@ public class TicketController {
     @PostMapping
     public String uploadFile(@RequestParam("file") MultipartFile file) {
 
-        if (file.getOriginalFilename().endsWith(".xls")){
-            importTickets.importExcelToDataXls(file,null,null);
-        } else {
-            importTickets.importExcelToDataXlsx(file,null,null);
-        }
-
+        importTickets.importExcelToData(file, null, null);
         return "redirect:/v1/tickets?success";
     }
 }

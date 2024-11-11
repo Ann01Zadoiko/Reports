@@ -1,6 +1,6 @@
 package com.example.demo.track;
 
-import com.example.demo.combine.Combine;
+
 import com.example.demo.importData.ImportTracks;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -18,7 +18,6 @@ import java.time.LocalDate;
 public class TrackController {
 
     private final ImportTracks importTracks;
-    private final Combine combine;
 
     @GetMapping
     public String showUploadForm(){
@@ -30,13 +29,7 @@ public class TrackController {
                          @RequestParam("day") LocalDate day,
                          @RequestParam("depo") String depo){
 
-        if (file.getOriginalFilename().endsWith(".xls")){
-            importTracks.importExcelToDataXls(file, depo, day);
-        } else {
-            importTracks.importExcelToDataXlsx(file, depo, day);
-        }
-
-       // combine.combineLong(day);
+        importTracks.importExcelToData(file, depo, day);
 
         return "redirect:/v1/tracks?success";
     }

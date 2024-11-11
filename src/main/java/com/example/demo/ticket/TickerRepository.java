@@ -12,7 +12,6 @@ import java.util.List;
 @Repository
 public interface TickerRepository extends JpaRepository<Ticket, Long> {
 
-
     List<Ticket> findByTramAndDay(Tram tram, LocalDate day);
 
     List<Ticket> findByDay(LocalDate day);
