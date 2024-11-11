@@ -21,7 +21,7 @@
                     <a class="nav-link" href="/v1/reports/">Звіти</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="/v1/tickets/">Квітки</a>
+                    <a class="nav-link" aria-current="page" href="/v1/tickets">Квітки</a>
                 </li>
             </ul>
         </div>
@@ -32,7 +32,13 @@
     <div class="mx-auto w-25 " style="max-width:100%;">
         <div class="container">
             <h1 class="mb-5">Завантажити файл</h1>
-            <form th:action="@{/v1/tracks/}" method="POST" enctype="multipart/form-data">
+            <div th:if="${param.success}">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Success!</strong> File has been uploaded
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+            <form th:action="@{/v1/tracks}" method="POST" enctype="multipart/form-data">
                 <div class="form-group mb-3">
                     <label class="form-label" for="depo">Депо:</label>
                     <select id="depo" name="depo" class="form-select mb-3" aria-label="Default select example">
@@ -47,8 +53,9 @@
                     <label class="form-label" for="file">Оберіть файл:</label>
                     <input type="file" id="file" name="file" class="form-control mb-3" required multiple>
                 </div>
-                <button type="submit" class="btn btn-primary">Завантажити</button>
+                <button type="submit" class="btn btn-primary mb-5">Завантажити</button>
             </form>
+
         </div>
     </div>
 </div>

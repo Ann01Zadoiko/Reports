@@ -15,12 +15,12 @@ public class TicketController {
 
     private final ImportTickets importTickets;
 
-    @GetMapping("/")
+    @GetMapping
     public String showUploadForm() {
         return "/tickets/index";
     }
 
-    @PostMapping("/")
+    @PostMapping
     public String uploadFile(@RequestParam("file") MultipartFile file) {
 
         if (file.getOriginalFilename().endsWith(".xls")){
@@ -29,6 +29,6 @@ public class TicketController {
             importTickets.importExcelToDataXlsx(file,null,null);
         }
 
-        return "/v1/tickets?success";
+        return "redirect:/v1/tickets?success";
     }
 }

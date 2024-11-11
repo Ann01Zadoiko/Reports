@@ -20,12 +20,12 @@ public class TrackController {
     private final ImportTracks importTracks;
     private final Combine combine;
 
-    @GetMapping("/")
+    @GetMapping
     public String showUploadForm(){
         return "/tracks/upload";
     }
 
-    @PostMapping("/")
+    @PostMapping
     public String upload(@RequestParam("file") MultipartFile file,
                          @RequestParam("day") LocalDate day,
                          @RequestParam("depo") String depo){
@@ -38,6 +38,6 @@ public class TrackController {
 
        // combine.combineLong(day);
 
-        return "/v1/tracks?success";
+        return "redirect:/v1/tracks?success";
     }
 }
