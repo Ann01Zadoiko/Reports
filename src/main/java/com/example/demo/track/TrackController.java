@@ -2,6 +2,8 @@ package com.example.demo.track;
 
 
 import com.example.demo.importData.ImportTracks;
+import com.example.demo.tram.Tram;
+import com.example.demo.tram.TramService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,19 +20,26 @@ import java.time.LocalDate;
 public class TrackController {
 
     private final ImportTracks importTracks;
+    private final TramService tramService;
+    private final TrackService trackService;
 
+    //отображение страницы
     @GetMapping
     public String showUploadForm(){
         return "/tracks/upload";
     }
 
+    //загрузка файла
     @PostMapping
-    public String upload(@RequestParam("file") MultipartFile file,
-                         @RequestParam("day") LocalDate day,
-                         @RequestParam("depo") String depo){
+    public String upload(
+            @RequestParam("file") MultipartFile file,
+            @RequestParam("day") LocalDate day,
+            @RequestParam("depo") String depo) {
 
         importTracks.importExcelToData(file, depo, day);
 
         return "redirect:/v1/tracks?success";
     }
+
+
 }

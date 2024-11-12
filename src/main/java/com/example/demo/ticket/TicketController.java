@@ -14,11 +14,13 @@ public class TicketController {
 
     private final ImportTickets importTickets;
 
+    //отображение страницы
     @GetMapping
     public String showUploadForm() {
         return "/tickets/index";
     }
 
+    //загрузка файла
     @PostMapping
     public String uploadFile(@RequestParam("file") MultipartFile file) {
 

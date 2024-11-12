@@ -24,14 +24,18 @@ public class ImportTickets implements Import{
     private final TramService tramService;
     private final TicketService ticketService;
 
+    //импорт данных из файла в таблицу tickets по депо и дню
     @Override
     public void importExcelToData(MultipartFile file, String depo, LocalDate day){
 
+        //обрабока входящего файла
         try (InputStream inputStream = file.getInputStream()){
 
             Sheet sheet;
 
+            //проверка формата файла
             if (file.getOriginalFilename().endsWith(".xls")){
+                //создание листа
                 HSSFWorkbook workbook = new HSSFWorkbook(inputStream);
                 sheet = workbook.getSheetAt(0);
             } else {
@@ -40,10 +44,12 @@ public class ImportTickets implements Import{
             }
 
             for(Row row: sheet) {
+                //пропуск 0-строки
                 if (row.getRowNum() == 0){
                     continue;
                 }
 
+                //отбор данных из ячейки
                 String rowDay = row.getCell(1).getStringCellValue();
                 String dayString;
 
@@ -59,6 +65,7 @@ public class ImportTickets implements Import{
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                 LocalDateTime date = LocalDateTime.parse(dayString, formatter);
 
+                //добавление билета в бд
                 Ticket ticket = new Ticket();
                 ticket.setDay(date.toLocalDate());
                 ticket.setTram(tramService.getByDepoAndNumberOfTram(depoT, numberOfTram));

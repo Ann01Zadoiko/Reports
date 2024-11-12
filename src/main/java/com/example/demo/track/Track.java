@@ -33,4 +33,5 @@ public class Track {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_tram")
     private Tram tram;
+
 }

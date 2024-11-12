@@ -17,7 +17,7 @@ public class TramService {
         tramRepository.save(tram);
     }
 
-    public boolean isExist(String depo, String numberOfTram){
+    public boolean isExists(String depo, String numberOfTram){
 
         List<Tram> trams = tramRepository.findByDepo(depo);
         for (Tram tram:  trams){
@@ -31,7 +31,7 @@ public class TramService {
 
     public Tram getByDepoAndNumberOfTram(String depo, String numberOfTram){
 
-        if (!isExist(depo, numberOfTram)){
+        if (!isExists(depo, numberOfTram)){
             Tram tram = new Tram();
             tram.setNumberOfTram(numberOfTram);
             tram.setDepo(depo);

@@ -17,12 +17,15 @@ public class Combine {
     private final TicketService ticketService;
     private final TrackService trackService;
 
+
+    //добавить значение id_track в таблицу tickets по дате
     public void combineLong(LocalDate day){
         List<Ticket> tickets = ticketService.getByDay(day);
         List<Track> tracks = trackService.getByDay(day);
 
         for (Ticket ticket: tickets){
             for (Track track: tracks){
+                //добавить значение id_track в соответсвующий ticket
                 if (track.getTram().equals(ticket.getTram())){
                     ticket.setTrack(track);
                     ticketService.add(ticket);

@@ -13,13 +13,8 @@ public class TrackService {
 
     private final TrackRepository trackRepository;
 
-    public void add(Tram tram, String track, LocalDate day){
-        Track track1 = new Track();
-        track1.setTrack(track);
-        track1.setDay(day);
-        track1.setTram(tram);
-
-        trackRepository.save(track1);
+    public void add(Track track){
+        trackRepository.save(track);
     }
 
     public void deleteAll(){
@@ -32,5 +27,25 @@ public class TrackService {
 
     public Track getByDayAndIdTram(LocalDate day, Long id){
         return trackRepository.findByDayAndIdTram(day, id);
+    }
+
+    public Track getByTramAndTrack(LocalDate day, Tram tram){
+        return trackRepository.findByDayAndTram(day, tram);
+    }
+
+    public List<Track> getByTram(Tram tram){
+        return trackRepository.findByTram(tram);
+    }
+
+    public boolean isExists(Track track){
+        List<Track> tracks = getByTram(track.getTram());
+
+        for (Track track1: tracks){
+            if (track.getDay().equals(track1.getDay())){
+                return true;
+            }
+        }
+
+        return false;
     }
 }

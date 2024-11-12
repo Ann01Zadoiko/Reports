@@ -1,5 +1,6 @@
 package com.example.demo.counter;
 
+import com.example.demo.exportData.ExportData;
 import com.example.demo.ticket.TicketService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -19,6 +20,11 @@ import org.springframework.http.ResponseEntity;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.time.temporal.TemporalAccessor;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -28,12 +34,16 @@ public class CounterController {
     private final CounterTickets counterTickets;
     private final TicketService ticketService;
     private String downloadFile;
+    private final ExportData exportData;
 
     @GetMapping("/")
     public String showDownloadPage(Model model){
-        System.out.println(ticketService.getLocalDate().get(0));
 
-        model.addAttribute("days", ticketService.getLocalDate());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM(MMMM).yyyy");
+        List<LocalDate> days = ticketService.getLocalDate();
+        List<String> list = days.stream().map(date -> date.format(formatter)).toList();
+
+        model.addAttribute("days", list);
         return "/tickets/download";
     }
 
@@ -41,7 +51,7 @@ public class CounterController {
     @PostMapping("/")
     public String download(@RequestParam("day") LocalDate day){
 
-        downloadFile = counterTickets.createTable(day);
+        downloadFile = exportData.createTable(day);
         return "redirect:/v1/reports/download";
     }
 

@@ -1,5 +1,6 @@
 package com.example.demo.track;
 
+import com.example.demo.tram.Tram;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -15,4 +16,8 @@ public interface TrackRepository extends JpaRepository<Track, Long> {
 
     @Query(nativeQuery = true, value = "select tr.* from tracks tr where tr.id_tram=:id and tr.day=:day")
     Track findByDayAndIdTram(LocalDate day, Long id);
+
+    Track findByDayAndTram(LocalDate day, Tram tram);
+
+    List<Track> findByTram(Tram tram);
 }
