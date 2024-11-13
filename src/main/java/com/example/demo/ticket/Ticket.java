@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "tickets")
@@ -26,6 +27,12 @@ public class Ticket {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_tram")
     private Tram tram;
+
+    @Column(name = "price")
+    private Integer price;
+
+    @Column(name = "time")
+    private LocalTime time;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_track")

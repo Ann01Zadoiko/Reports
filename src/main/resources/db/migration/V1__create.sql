@@ -6,8 +6,10 @@ create table trams(
 
 create table tracks(
 	id bigint auto_increment primary key,
-    track varchar(10),
     day date,
+    first_part varchar(10),
+    second_part varchar(10),
+    time time,
     id_tram bigint,
     foreign key (id_tram) references reports.trams(id)
 );
@@ -17,6 +19,8 @@ create table tickets(
     id_tram bigint,
     day date,
     id_track bigint,
+    price int,
+    time time,
     foreign key (id_tram) references trams(id),
     foreign key (id_track) references tracks(id)
 );

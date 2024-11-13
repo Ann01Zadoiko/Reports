@@ -1,5 +1,6 @@
 package com.example.demo.exportData;
 
+import com.example.demo.ticket.Ticket;
 import com.example.demo.ticket.TicketService;
 import com.example.demo.track.TrackService;
 import com.example.demo.tram.Tram;
@@ -64,7 +65,7 @@ public class CreateRow {
         fontInner.setFontHeightInPoints((short) 12);
         cellStyle.setFont(fontInner);
 
-        for (Tram tram: tramService.getByDay(day)){
+        for (Tram tram: tramService.getByDayAndPrice(day)){
             Row row = sheet.createRow(indexRow++);
 
             Cell cell = row.createCell(0);
@@ -76,18 +77,19 @@ public class CreateRow {
             cell.setCellStyle(cellStyle);
 
             cell = row.createCell(2);
-            cell.setCellValue(ticketService.getByTramAndDay(tram, day).size());
+            cell.setCellValue(ticketService.sumTicketsByTram(day, tram)/7);
             cell.setCellStyle(cellStyle);
 
             cell = row.createCell(3);
-            cell.setCellValue((ticketService.getByTramAndDay(tram, day).size() * 7));
+
+            cell.setCellValue(ticketService.sumTicketsByTram(day, tram));
             cell.setCellStyle(cellStyle);
 
             if (trackService.getByDayAndIdTram(day, tram.getId()) == null){
                 continue;
             } else {
                 cell = row.createCell(4);
-                cell.setCellValue(trackService.getByDayAndIdTram(day, tram.getId()).getTrack());
+           //     cell.setCellValue(trackService.getByDayAndIdTram(day, tram.getId()).getTrack());
                 cell.setCellStyle(cellStyle);
             }
 
@@ -100,11 +102,11 @@ public class CreateRow {
         amountCell.setCellStyle(cellStyle);
 
         amountCell = amountRow.createCell(2);
-        amountCell.setCellValue(ticketService.getByDay(day).size());
+        amountCell.setCellValue(ticketService.sumTickets(day)/7);
         amountCell.setCellStyle(cellStyle);
 
         amountCell = amountRow.createCell(3);
-        amountCell.setCellValue(ticketService.getByDay(day).size() * 7);
+        amountCell.setCellValue(ticketService.sumTickets(day));
         amountCell.setCellStyle(cellStyle);
     }
 }

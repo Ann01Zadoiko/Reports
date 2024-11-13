@@ -65,10 +65,15 @@ public class ImportTickets implements Import{
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                 LocalDateTime date = LocalDateTime.parse(dayString, formatter);
 
+                String price = row.getCell(5).getStringCellValue().strip();
+                price.length();
+
                 //добавление билета в бд
                 Ticket ticket = new Ticket();
                 ticket.setDay(date.toLocalDate());
+                ticket.setTime(date.toLocalTime());
                 ticket.setTram(tramService.getByDepoAndNumberOfTram(depoT, numberOfTram));
+                ticket.setPrice(Integer.valueOf(price.substring(0, price.length()-3)));
 
                 ticketService.add(ticket);
             }

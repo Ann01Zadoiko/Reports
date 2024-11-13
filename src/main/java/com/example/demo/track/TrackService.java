@@ -29,10 +29,6 @@ public class TrackService {
         return trackRepository.findByDayAndIdTram(day, id);
     }
 
-    public Track getByTramAndTrack(LocalDate day, Tram tram){
-        return trackRepository.findByDayAndTram(day, tram);
-    }
-
     public List<Track> getByTram(Tram tram){
         return trackRepository.findByTram(tram);
     }

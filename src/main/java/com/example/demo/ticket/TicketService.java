@@ -41,4 +41,31 @@ public class TicketService {
         return tickerRepository.findDistinctDays();
     }
 
+    public int sumTickets(LocalDate day){
+        return tickerRepository.sumTickets(day);
+    }
+
+    public int sumTravelCard(LocalDate day){
+        return tickerRepository.sumTravelCard(day);
+    }
+
+    public int sumTicketsByDepo(LocalDate day, String depo){
+        return tickerRepository.sumTicketsByDepo(day, depo);
+    }
+
+    public int sumTicketsByTram(LocalDate day, Tram tram){
+        return tickerRepository.sumTicketsByTram(day, tram.getDepo(), tram.getNumberOfTram());
+    }
+
+    public List<Ticket> getByDayAndPrice(LocalDate day){
+        return tickerRepository.findByDayAndPrice(day, 7);
+    }
+
+    public int sumTravelCardByDepo(LocalDate day, String depo){
+        return tickerRepository.sumTravelCardByDepo(day, depo);
+    }
+//
+//    public int sumTicketsByDepoAndTrack(LocalDate day, String depo, String track){
+//        return tickerRepository.sumTicketsByDepoAndTrack(day, depo, track);
+//    }
 }

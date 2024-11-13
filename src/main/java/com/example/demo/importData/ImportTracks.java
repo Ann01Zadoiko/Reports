@@ -16,6 +16,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 
 @Service
@@ -57,17 +59,37 @@ public class ImportTracks implements Import{
                     break;
                 }
 
-                String track = row.getCell(1).getStringCellValue();
-
-                //добавление маршрута в бд
                 Tram tram = tramService.getByDepoAndNumberOfTram(depo, number);
 
-                Track track1 = new Track();
-                track1.setTram(tram);
-                track1.setTrack(track);
-                track1.setDay(day);
+                String firstPart = row.getCell(1).getStringCellValue();
+                String secondPart;
+                LocalTime localTime;
 
-                trackService.add(track1);
+                if (row.getCell(2).getStringCellValue().isEmpty()){
+
+                    Track track = new Track();
+                    track.setTram(tram);
+                    track.setFirstPart(firstPart);
+                    track.setDay(day);
+
+                    trackService.add(track);
+                    continue;
+                } else {
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+                    localTime = LocalTime.parse(row.getCell(2).getStringCellValue(), formatter);
+
+                    secondPart = row.getCell(3).getStringCellValue();
+                }
+
+                //добавление маршрута в бд
+                Track track = new Track();
+                track.setTram(tram);
+                track.setFirstPart(firstPart);
+                track.setSecondPart(secondPart);
+                track.setTime(localTime);
+                track.setDay(day);
+
+                trackService.add(track);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);

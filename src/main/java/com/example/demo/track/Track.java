@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Entity
@@ -21,11 +22,17 @@ public class Track {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "track")
-    private String track;
-
     @Column(name = "day")
     private LocalDate day;
+
+    @Column(name = "first_part")
+    private String firstPart;
+
+    @Column(name = "second_part")
+    private String secondPart;
+
+    @Column(name = "time")
+    private LocalTime time;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "track", cascade = CascadeType.ALL)
     private List<Ticket> tickets;

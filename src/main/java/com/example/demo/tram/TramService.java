@@ -60,4 +60,8 @@ public class TramService {
     public Set<Tram> getByDay(LocalDate day){
         return tramRepository.findByDay(day);
     }
+
+    public Set<Tram> getByDayAndPrice(LocalDate day){
+        return tramRepository.findByDayAndPrice(day);
+    }
 }

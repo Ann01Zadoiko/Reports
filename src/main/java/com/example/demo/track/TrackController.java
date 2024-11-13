@@ -20,8 +20,6 @@ import java.time.LocalDate;
 public class TrackController {
 
     private final ImportTracks importTracks;
-    private final TramService tramService;
-    private final TrackService trackService;
 
     //отображение страницы
     @GetMapping
