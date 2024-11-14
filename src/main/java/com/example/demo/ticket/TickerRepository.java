@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 
@@ -53,11 +54,31 @@ public interface TickerRepository extends JpaRepository<Ticket, Long> {
                     "where t.price>7 and tr.depo=:depo and t.day=:day")
     int sumTravelCardByDepo(LocalDate day, String depo);
 
-//    @Query(nativeQuery = true,
-//            value = "select sum(t.price)\n" +
-//                    "from tickets t\n" +
-//                    "join trams tm on t.id_tram=tm.id\n" +
-//                    "join tracks tr on t.id_track=tr.id\n" +
-//                    "where t.day=:day and tm.depo=:depo and tr.track=:track and t.price=7")
-//    int sumTicketsByDepoAndTrack(LocalDate day, String depo, String track);
+
+    @Query(nativeQuery = true,
+            value = "select sum(t.price)\n" +
+                    "from reports.tickets t\n" +
+                    "join reports.tracks tr on t.id_track=tr.id\n" +
+                    "where tr.time is null and t.price=7 and t.day=:day")
+    int sumTicketsFullDay(LocalDate day);
+
+    @Query(nativeQuery = true,
+            value = "\n" +
+                    "select sum(t.price)\n" +
+                    "from reports.tickets t\n" +
+                    "join reports.tracks tr on t.id_track=tr.id\n" +
+                    "where tr.time >:time and tr.time>t.time and t.price=7 and t.day=:day")
+    int sumTicketsFirstPart(LocalDate day, LocalTime time);
+
+    @Query(nativeQuery = true,
+            value = "\n" +
+                    "select sum(t.price)\n" +
+                    "from reports.tickets t\n" +
+                    "join reports.tracks tr on t.id_track=tr.id\n" +
+                    "where tr.time<:time and tr.time<t.time and t.price=7 and t.day=:day")
+    int sumTicketsSecondPart(LocalDate day, LocalTime time);
+
+    @Query(nativeQuery = true,
+            value = "select t.* from tickets t where t.day =:day and t.price>7")
+    List<Ticket> findTravelCard(LocalDate day);
 }

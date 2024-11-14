@@ -12,7 +12,8 @@ import org.springframework.context.annotation.ComponentScan;
 		"com.example.demo.track",
 		"com.example.demo.combine",
 		"com.example.demo.counter",
-		"com.example.demo.exportData"})
+		"com.example.demo.sheet",
+		"com.example.demo.creater"})
 public class DemoApplication {
 
 	public static void main(String[] args) {

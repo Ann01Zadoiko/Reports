@@ -1,6 +1,7 @@
 package com.example.demo.counter;
 
-import com.example.demo.exportData.ExportData;
+import com.example.demo.sheet.SheetMain;
+import com.example.demo.sheet.SheetTickets;
 import com.example.demo.ticket.TicketService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -20,21 +21,17 @@ import org.springframework.http.ResponseEntity;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
-import java.time.temporal.TemporalAccessor;
 import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/v1/reports")
-public class CounterController {
+public class DownloadController {
 
-    private final CounterTickets counterTickets;
     private final TicketService ticketService;
     private String downloadFile;
-    private final ExportData exportData;
+    private final SheetMain sheetMain;
 
     @GetMapping("/")
     public String showDownloadPage(Model model){
@@ -51,7 +48,7 @@ public class CounterController {
     @PostMapping("/")
     public String download(@RequestParam("day") LocalDate day){
 
-        downloadFile = exportData.createTable(day);
+        downloadFile = sheetMain.createWorkbook(day);
         return "redirect:/v1/reports/download";
     }
 

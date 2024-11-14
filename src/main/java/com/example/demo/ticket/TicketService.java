@@ -1,10 +1,12 @@
 package com.example.demo.ticket;
 
+import com.example.demo.track.Track;
 import com.example.demo.tram.Tram;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -23,10 +25,6 @@ public class TicketService {
 
     public void deleteAllTickets(){
         tickerRepository.deleteAll();
-    }
-
-    public List<Ticket> getAll(){
-        return tickerRepository.findAll();
     }
 
     public List<Ticket> getByDay(LocalDate day){
@@ -64,8 +62,25 @@ public class TicketService {
     public int sumTravelCardByDepo(LocalDate day, String depo){
         return tickerRepository.sumTravelCardByDepo(day, depo);
     }
-//
-//    public int sumTicketsByDepoAndTrack(LocalDate day, String depo, String track){
-//        return tickerRepository.sumTicketsByDepoAndTrack(day, depo, track);
-//    }
+
+
+    public int sumTicketsFullDay(LocalDate day, Track track){
+        if (!track.getTime().equals(null)){
+            return 0;
+        } else {
+            return tickerRepository.sumTicketsFullDay(day);
+        }
+    }
+
+    public int sumTicketsFirstPart(LocalDate day, LocalTime time){
+        return tickerRepository.sumTicketsFirstPart(day, time);
+    }
+
+    public int sumTicketsSecondPart(LocalDate day, LocalTime time){
+        return tickerRepository.sumTicketsSecondPart(day, time);
+    }
+
+    public List<Ticket> getTravelCards(LocalDate day){
+        return tickerRepository.findTravelCard(day);
+    }
 }

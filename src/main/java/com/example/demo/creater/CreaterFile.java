@@ -1,9 +1,9 @@
-package com.example.demo.exportData;
+package com.example.demo.creater;
 
 import java.io.File;
 import java.time.LocalDate;
 
-public class Creater {
+public class CreaterFile {
 
     public File createFile(LocalDate day){
         StringBuilder builder = new StringBuilder()
