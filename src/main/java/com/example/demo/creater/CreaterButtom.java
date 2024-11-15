@@ -77,4 +77,29 @@ public class CreaterButtom {
         amountCell.setCellValue(ticketService.sumTravelCard(day));
         amountCell.setCellStyle(cellStyle);
     }
+
+    public void createTicketsByDepo(int indexRow, Workbook workbook, Sheet sheet, LocalDate day, String depo){
+
+        CellStyle cellStyle = workbook.createCellStyle();
+        cellStyle.setAlignment(HorizontalAlignment.CENTER);
+
+        XSSFFont fontInner = ((XSSFWorkbook) workbook).createFont();
+        fontInner.setFontName("Times New Roman");
+        fontInner.setFontHeightInPoints((short) 12);
+        cellStyle.setFont(fontInner);
+
+        Row amountRow = sheet.createRow(++indexRow);
+
+        Cell amountCell = amountRow.createCell(0);
+        amountCell.setCellValue("Всього");
+        amountCell.setCellStyle(cellStyle);
+
+        amountCell = amountRow.createCell(1);
+        amountCell.setCellValue(ticketService.sumTicketsByDepo(day, depo)/7);
+        amountCell.setCellStyle(cellStyle);
+
+        amountCell = amountRow.createCell(2);
+        amountCell.setCellValue(ticketService.sumTicketsByDepo(day, depo));
+        amountCell.setCellStyle(cellStyle);
+    }
 }

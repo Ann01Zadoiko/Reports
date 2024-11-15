@@ -59,26 +59,41 @@ public interface TickerRepository extends JpaRepository<Ticket, Long> {
             value = "select sum(t.price)\n" +
                     "from reports.tickets t\n" +
                     "join reports.tracks tr on t.id_track=tr.id\n" +
-                    "where tr.time is null and t.price=7 and t.day=:day")
-    int sumTicketsFullDay(LocalDate day);
+                    "where tr.time is null and t.price=7 and t.day=:day and " +
+                    "tr.first_part=:firstPart")
+    int sumTicketsFullDay(LocalDate day, String firstPart);
 
     @Query(nativeQuery = true,
             value = "\n" +
                     "select sum(t.price)\n" +
                     "from reports.tickets t\n" +
                     "join reports.tracks tr on t.id_track=tr.id\n" +
-                    "where tr.time >:time and tr.time>t.time and t.price=7 and t.day=:day")
-    int sumTicketsFirstPart(LocalDate day, LocalTime time);
+                    "where tr.time >:time and tr.time>t.time and t.price=7 and " +
+                    "t.day=:day  and tr.first_part=:firstPart")
+    int sumTicketsFirstPart(LocalDate day, LocalTime time, String firstPart);
 
     @Query(nativeQuery = true,
             value = "\n" +
                     "select sum(t.price)\n" +
                     "from reports.tickets t\n" +
                     "join reports.tracks tr on t.id_track=tr.id\n" +
-                    "where tr.time<:time and tr.time<t.time and t.price=7 and t.day=:day")
-    int sumTicketsSecondPart(LocalDate day, LocalTime time);
+                    "where tr.time<:time and tr.time<t.time and t.price=7 and t.day=:day " +
+                    "and tr.second_part=:secondPart")
+    int sumTicketsSecondPart(LocalDate day, LocalTime time, String secondPart);
 
     @Query(nativeQuery = true,
             value = "select t.* from tickets t where t.day =:day and t.price>7")
     List<Ticket> findTravelCard(LocalDate day);
+
+    @Query(nativeQuery = true,
+            value = "select sum(t.price) \n" +
+                    "from tickets t\n" +
+                    "join tracks tr on t.id_track = tr.id\n" +
+                    "join trams tm on t.id_tram=tm.id\n" +
+                    "where depo=:depo \n" +
+                    "and tr.day=t.day and tr.day=:day and t.price=7 and\n" +
+                    "((tr.time is null and tr.first_part=:track) or\n" +
+                    "(tr.time>t.time and tr.first_part=:track ) or\n" +
+                    "(tr.time<t.time and tr.second_part=:track) )")
+    Integer sumTicketsByDepoAndTrack(LocalDate day, String depo, String track);
 }

@@ -68,19 +68,24 @@ public class TicketService {
         if (!track.getTime().equals(null)){
             return 0;
         } else {
-            return tickerRepository.sumTicketsFullDay(day);
+            return tickerRepository.sumTicketsFullDay(day, track.getFirstPart());
         }
     }
 
-    public int sumTicketsFirstPart(LocalDate day, LocalTime time){
-        return tickerRepository.sumTicketsFirstPart(day, time);
+    public int sumTicketsFirstPart(LocalDate day, Track track){
+        return tickerRepository.sumTicketsFirstPart(day, track.getTime(), track.getFirstPart());
     }
 
-    public int sumTicketsSecondPart(LocalDate day, LocalTime time){
-        return tickerRepository.sumTicketsSecondPart(day, time);
+    public int sumTicketsSecondPart(LocalDate day, Track track){
+        return tickerRepository.sumTicketsSecondPart(day, track.getTime(), track.getSecondPart());
     }
 
     public List<Ticket> getTravelCards(LocalDate day){
         return tickerRepository.findTravelCard(day);
+    }
+
+    public int sumByDepoAndTrack(LocalDate day, String depo, String track){
+        Integer sum = tickerRepository.sumTicketsByDepoAndTrack(day, depo, track);
+        return sum != null ? sum : 0;
     }
 }

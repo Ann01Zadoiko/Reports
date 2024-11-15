@@ -105,4 +105,33 @@ public class CreaterMain {
 
         return indexRow;
     }
+
+    public int createTicketsByDepo(int indexRow, Workbook workbook, Sheet sheet, LocalDate day, String depo){
+
+        CellStyle cellStyle = workbook.createCellStyle();
+        cellStyle.setAlignment(HorizontalAlignment.CENTER);
+
+        XSSFFont fontInner = ((XSSFWorkbook) workbook).createFont();
+        fontInner.setFontName("Times New Roman");
+        fontInner.setFontHeightInPoints((short) 12);
+        cellStyle.setFont(fontInner);
+
+        for (String track: trackService.getListTracks(day, depo)){
+            Row row = sheet.createRow(indexRow++);
+
+            Cell cell = row.createCell(0);
+            cell.setCellValue(track);
+            cell.setCellStyle(cellStyle);
+
+            cell = row.createCell(1);
+            cell.setCellValue(ticketService.sumByDepoAndTrack(day, depo, track)/7);
+            cell.setCellStyle(cellStyle);
+
+            cell = row.createCell(2);
+            cell.setCellValue(ticketService.sumByDepoAndTrack(day, depo, track));
+            cell.setCellStyle(cellStyle);
+        }
+
+        return indexRow;
+    }
 }

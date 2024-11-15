@@ -20,7 +20,7 @@ public class SheetTickets {
     private final CreaterMain createrMain;
     private final CreaterButtom createrButtom;
 
-    public void createTable(LocalDate day, Workbook workbook) throws IOException {
+    public void createTable(LocalDate day, Workbook workbook){
 
         List<String> list = new ArrayList<>();
         list.add("Депо");

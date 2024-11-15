@@ -65,7 +65,7 @@ public class ImportTracks implements Import{
                 String secondPart;
                 LocalTime localTime;
 
-                if (row.getCell(2).getStringCellValue().isEmpty()){
+                if (row.getCell(2) == null || row.getCell(2).getStringCellValue() == null || row.getCell(2).getStringCellValue().isEmpty()){
 
                     Track track = new Track();
                     track.setTram(tram);

@@ -44,4 +44,13 @@ public class TrackService {
 
         return false;
     }
+
+    public List<Track> getByDayAndDepo(LocalDate day, String depo){
+        return trackRepository.findByDayAndDepo(day, depo);
+    }
+
+    public List<String> getListTracks(LocalDate day, String depo){
+        return trackRepository.listTracks(day, depo);
+    }
+
 }

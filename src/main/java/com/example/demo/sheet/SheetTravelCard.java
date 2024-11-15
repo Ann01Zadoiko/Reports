@@ -25,7 +25,7 @@ public class SheetTravelCard {
     private final CreaterMain createrMain;
     private final CreaterButtom createrButtom;
 
-    public void createTable(LocalDate day, Workbook workbook, List<String> depo) throws IOException {
+    public void createTable(LocalDate day, Workbook workbook, List<String> depo) {
 
         List<String> list = new ArrayList<>();
         list.add("Депо");
