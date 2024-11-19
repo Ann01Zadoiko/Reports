@@ -1,7 +1,6 @@
-package com.example.demo.counter;
+package com.example.demo.download;
 
 import com.example.demo.sheet.SheetMain;
-import com.example.demo.sheet.SheetTickets;
 import com.example.demo.ticket.TicketService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -19,7 +18,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.io.File;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -47,15 +45,15 @@ public class DownloadController {
     @SneakyThrows
     @PostMapping("/")
     public String download(@RequestParam("day") LocalDate day){
-
         downloadFile = sheetMain.createWorkbook(day);
+
         return "redirect:/v1/reports/download";
     }
 
     @GetMapping("/download")
-    public ResponseEntity<Resource> downloadFile() throws IOException {
-        // Используем FileSystemResource для работы с файлами, которые находятся на диске
-        File file = new File(downloadFile); // Предполагается, что downloadFile содержит полный путь к файлу
+    public ResponseEntity<Resource> downloadFile() {
+
+        File file = new File(downloadFile);
         Resource resource = new FileSystemResource(file);
 
         if (!resource.exists()) {
@@ -64,8 +62,6 @@ public class DownloadController {
 
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getName() + "\"");
-
-        System.out.println("File path: " + downloadFile);
 
         return ResponseEntity.ok()
                 .headers(headers)

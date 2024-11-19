@@ -2,8 +2,6 @@ package com.example.demo.track;
 
 
 import com.example.demo.importData.ImportTracks;
-import com.example.demo.tram.Tram;
-import com.example.demo.tram.TramService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

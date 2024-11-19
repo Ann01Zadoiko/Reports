@@ -41,10 +41,6 @@ public class TramService {
         return tramRepository.findByDepoAndNumberOfTram(depo, numberOfTram);
     }
 
-    public List<Tram> getByDepo(String depo){
-        return tramRepository.findByDepo(depo);
-    }
-
     public List<Tram> getAll(){
         return tramRepository.findAll();
     }
@@ -55,10 +51,6 @@ public class TramService {
 
     public Tram getById(Long id){
         return tramRepository.findById(id).get();
-    }
-
-    public Set<Tram> getByDay(LocalDate day){
-        return tramRepository.findByDay(day);
     }
 
     public Set<Tram> getByDayAndPrice(LocalDate day){

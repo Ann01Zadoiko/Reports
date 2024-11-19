@@ -66,7 +66,6 @@ public class ImportTickets implements Import{
                 LocalDateTime date = LocalDateTime.parse(dayString, formatter);
 
                 String price = row.getCell(5).getStringCellValue().strip();
-                price.length();
 
                 //добавление билета в бд
                 Ticket ticket = new Ticket();

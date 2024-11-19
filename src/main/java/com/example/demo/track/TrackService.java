@@ -17,10 +17,6 @@ public class TrackService {
         trackRepository.save(track);
     }
 
-    public void deleteAll(){
-        trackRepository.deleteAll();
-    }
-
     public List<Track> getByDay(LocalDate day){
         return trackRepository.findByDay(day);
     }
@@ -43,10 +39,6 @@ public class TrackService {
         }
 
         return false;
-    }
-
-    public List<Track> getByDayAndDepo(LocalDate day, String depo){
-        return trackRepository.findByDayAndDepo(day, depo);
     }
 
     public List<String> getListTracks(LocalDate day, String depo){

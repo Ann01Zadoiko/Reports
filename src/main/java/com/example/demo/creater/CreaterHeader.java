@@ -1,6 +1,7 @@
 package com.example.demo.creater;
 
 
+import com.example.demo.constance.StyleConstance;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -19,7 +20,7 @@ public class CreaterHeader {
         headerStyle.setAlignment(HorizontalAlignment.CENTER);
 
         XSSFFont font = ((XSSFWorkbook) workbook).createFont();
-        font.setFontName("Times New Roman");
+        font.setFontName(StyleConstance.FONT_NAME);
         font.setFontHeightInPoints((short) 14);
         font.setBold(true);
         headerStyle.setFont(font);

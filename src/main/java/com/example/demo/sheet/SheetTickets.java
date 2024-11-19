@@ -1,5 +1,6 @@
 package com.example.demo.sheet;
 
+import com.example.demo.constance.FieldConstance;
 import com.example.demo.creater.CreaterButtom;
 import com.example.demo.creater.CreaterHeader;
 import com.example.demo.creater.CreaterMain;
@@ -8,9 +9,8 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -22,13 +22,10 @@ public class SheetTickets {
 
     public void createTable(LocalDate day, Workbook workbook){
 
-        List<String> list = new ArrayList<>();
-        list.add("Депо");
-        list.add("Вагон");
-        list.add("Кількість квітків");
-        list.add("Сума");
-        list.add("Маршрут 1");
-        list.add("Маршрут 2");
+        List<String> list = Arrays.asList(
+                FieldConstance.DEPO, FieldConstance.TRAM, FieldConstance.COUNT_OF_TICKETS,
+                FieldConstance.AMOUNT, FieldConstance.TRACK + " 1", FieldConstance.TRACK + " 2"
+        );
 
         Sheet sheet = workbook.createSheet("Звіт за " + day);
         sheet.setColumnWidth(0, 6000);

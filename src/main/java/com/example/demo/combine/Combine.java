@@ -17,7 +17,6 @@ public class Combine {
     private final TicketService ticketService;
     private final TrackService trackService;
 
-
     //добавить значение id_track в таблицу tickets по дате
     public void combineLong(LocalDate day){
         List<Ticket> tickets = ticketService.getByDay(day);

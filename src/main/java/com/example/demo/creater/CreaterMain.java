@@ -1,5 +1,6 @@
 package com.example.demo.creater;
 
+import com.example.demo.constance.StyleConstance;
 import com.example.demo.ticket.Ticket;
 import com.example.demo.ticket.TicketService;
 import com.example.demo.track.Track;
@@ -28,7 +29,7 @@ public class CreaterMain {
         cellStyle.setAlignment(HorizontalAlignment.CENTER);
 
         XSSFFont fontInner = ((XSSFWorkbook) workbook).createFont();
-        fontInner.setFontName("Times New Roman");
+        fontInner.setFontName(StyleConstance.FONT_NAME);
         fontInner.setFontHeightInPoints((short) 12);
         cellStyle.setFont(fontInner);
 
@@ -53,8 +54,8 @@ public class CreaterMain {
 
             Track track = trackService.getByDayAndIdTram(day, tram.getId());
 
+            cell = row.createCell(4);
             if (track != null){
-                cell = row.createCell(4);
                 cell.setCellValue(track.getFirstPart());
                 cell.setCellStyle(cellStyle);
 
@@ -68,7 +69,6 @@ public class CreaterMain {
                     cell.setCellStyle(cellStyle);
                 }
             } else {
-                cell = row.createCell(4);
                 cell.setCellValue("");
                 cell.setCellStyle(cellStyle);
             }
@@ -82,7 +82,7 @@ public class CreaterMain {
         cellStyle.setAlignment(HorizontalAlignment.CENTER);
 
         XSSFFont fontInner = ((XSSFWorkbook) workbook).createFont();
-        fontInner.setFontName("Times New Roman");
+        fontInner.setFontName(StyleConstance.FONT_NAME);
         fontInner.setFontHeightInPoints((short) 12);
         cellStyle.setFont(fontInner);
 
@@ -112,7 +112,7 @@ public class CreaterMain {
         cellStyle.setAlignment(HorizontalAlignment.CENTER);
 
         XSSFFont fontInner = ((XSSFWorkbook) workbook).createFont();
-        fontInner.setFontName("Times New Roman");
+        fontInner.setFontName(StyleConstance.FONT_NAME);
         fontInner.setFontHeightInPoints((short) 12);
         cellStyle.setFont(fontInner);
 

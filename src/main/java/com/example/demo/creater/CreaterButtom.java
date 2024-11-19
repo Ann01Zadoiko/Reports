@@ -1,9 +1,7 @@
 package com.example.demo.creater;
 
-import com.example.demo.ticket.Ticket;
+import com.example.demo.constance.StyleConstance;
 import com.example.demo.ticket.TicketService;
-import com.example.demo.tram.Tram;
-import com.example.demo.tram.TramService;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFFont;
@@ -17,7 +15,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CreaterButtom {
 
-    private final TramService tramService;
     private final TicketService ticketService;
 
     public void createRowMain(int indexRow, Workbook workbook, Sheet sheet, LocalDate day){
@@ -26,14 +23,14 @@ public class CreaterButtom {
         cellStyle.setAlignment(HorizontalAlignment.CENTER);
 
         XSSFFont fontInner = ((XSSFWorkbook) workbook).createFont();
-        fontInner.setFontName("Times New Roman");
+        fontInner.setFontName(StyleConstance.FONT_NAME);
         fontInner.setFontHeightInPoints((short) 12);
         cellStyle.setFont(fontInner);
 
         Row amountRow = sheet.createRow(++indexRow);
 
         Cell amountCell = amountRow.createCell(1);
-        amountCell.setCellValue("Всього");
+        amountCell.setCellValue(StyleConstance.AMOUNT);
         amountCell.setCellStyle(cellStyle);
 
         amountCell = amountRow.createCell(2);
@@ -51,26 +48,26 @@ public class CreaterButtom {
         cellStyle.setAlignment(HorizontalAlignment.CENTER);
 
         XSSFFont fontInner = ((XSSFWorkbook) workbook).createFont();
-        fontInner.setFontName("Times New Roman");
+        fontInner.setFontName(StyleConstance.FONT_NAME);
         fontInner.setFontHeightInPoints((short) 12);
         cellStyle.setFont(fontInner);
 
-        for (int i = 0; i < depo.size(); i++) {
+        for (String s : depo) {
             Row row = sheet.createRow(++indexRow);
 
             Cell cell = row.createCell(0);
-            cell.setCellValue(depo.get(i));
+            cell.setCellValue(s);
             cell.setCellStyle(cellStyle);
 
             cell = row.createCell(2);
-            cell.setCellValue(ticketService.sumTravelCardByDepo(day, depo.get(i)));
+            cell.setCellValue(ticketService.sumTravelCardByDepo(day, s));
             cell.setCellStyle(cellStyle);
         }
 
         Row amountRow = sheet.createRow(++indexRow);
 
         Cell amountCell = amountRow.createCell(1);
-        amountCell.setCellValue("Всього");
+        amountCell.setCellValue(StyleConstance.AMOUNT);
         amountCell.setCellStyle(cellStyle);
 
         amountCell = amountRow.createCell(2);
@@ -84,14 +81,14 @@ public class CreaterButtom {
         cellStyle.setAlignment(HorizontalAlignment.CENTER);
 
         XSSFFont fontInner = ((XSSFWorkbook) workbook).createFont();
-        fontInner.setFontName("Times New Roman");
+        fontInner.setFontName(StyleConstance.FONT_NAME);
         fontInner.setFontHeightInPoints((short) 12);
         cellStyle.setFont(fontInner);
 
         Row amountRow = sheet.createRow(++indexRow);
 
         Cell amountCell = amountRow.createCell(0);
-        amountCell.setCellValue("Всього");
+        amountCell.setCellValue(StyleConstance.AMOUNT);
         amountCell.setCellStyle(cellStyle);
 
         amountCell = amountRow.createCell(1);

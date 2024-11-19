@@ -1,21 +1,20 @@
 package com.example.demo.sheet;
 
-import com.example.demo.combine.Combine;
+
+import com.example.demo.constance.FieldConstance;
 import com.example.demo.creater.CreaterButtom;
-import com.example.demo.creater.CreaterFile;
+
 import com.example.demo.creater.CreaterHeader;
 import com.example.demo.creater.CreaterMain;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -27,10 +26,9 @@ public class SheetTravelCard {
 
     public void createTable(LocalDate day, Workbook workbook, List<String> depo) {
 
-        List<String> list = new ArrayList<>();
-        list.add("Депо");
-        list.add("Вагон");
-        list.add("Ціна");
+        List<String> list = Arrays.asList(
+                FieldConstance.DEPO, FieldConstance.TRAM, FieldConstance.PRICE
+        );
 
         Sheet sheet = workbook.createSheet("Проїздні за " + day);
         sheet.setColumnWidth(0, 6000);

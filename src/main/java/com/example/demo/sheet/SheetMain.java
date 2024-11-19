@@ -1,10 +1,9 @@
 package com.example.demo.sheet;
 
 import com.example.demo.combine.Combine;
+import com.example.demo.constance.DepoConstance;
 import com.example.demo.creater.CreaterFile;
-import com.example.demo.creater.CreaterHeader;
 import lombok.RequiredArgsConstructor;
-import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
@@ -13,8 +12,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -27,11 +24,6 @@ public class SheetMain {
 
     public String createWorkbook(LocalDate day) throws IOException {
 
-        List<String> list1 = new ArrayList<>();
-        list1.add("Депо №1 трамвай");
-        list1.add("Депо №2 трамвай");
-        list1.add("Троллейбусное депо");
-
         combine.combineLong(day);
 
         File file = new CreaterFile().createFile(day);
@@ -41,11 +33,11 @@ public class SheetMain {
 
             sheetTickets.createTable(day, workbook);
 
-            sheetTicketsDepo.createTable(day, workbook, list1.get(0));
-            sheetTicketsDepo.createTable(day, workbook, list1.get(1));
-            sheetTicketsDepo.createTable(day, workbook, list1.get(2));
+            sheetTicketsDepo.createTable(day, workbook, DepoConstance.DEPOS.get(0));
+            sheetTicketsDepo.createTable(day, workbook, DepoConstance.DEPOS.get(1));
+            sheetTicketsDepo.createTable(day, workbook, DepoConstance.DEPOS.get(2));
 
-            sheetTravelCard.createTable(day, workbook, list1);
+            sheetTravelCard.createTable(day, workbook, DepoConstance.DEPOS);
 
             workbook.write(fileOutputStream);
         }
