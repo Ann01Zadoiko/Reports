@@ -1,6 +1,6 @@
-package com.example.demo.creater;
+package com.example.demo.excel.table;
 
-import com.example.demo.constance.StyleConstance;
+import com.example.demo.excel.style.SheetStyle;
 import com.example.demo.ticket.Ticket;
 import com.example.demo.ticket.TicketService;
 import com.example.demo.track.Track;
@@ -9,8 +9,6 @@ import com.example.demo.tram.Tram;
 import com.example.demo.tram.TramService;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFFont;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -23,15 +21,10 @@ public class CreaterMain {
     private final TicketService ticketService;
     private final TrackService trackService;
 
+    //создание основной части таблицы из базы данных
     public int createRowMain(int indexRow, Workbook workbook, Sheet sheet, LocalDate day){
 
-        CellStyle cellStyle = workbook.createCellStyle();
-        cellStyle.setAlignment(HorizontalAlignment.CENTER);
-
-        XSSFFont fontInner = ((XSSFWorkbook) workbook).createFont();
-        fontInner.setFontName(StyleConstance.FONT_NAME);
-        fontInner.setFontHeightInPoints((short) 12);
-        cellStyle.setFont(fontInner);
+        CellStyle cellStyle = new SheetStyle().setStyle(workbook, 12, BorderStyle.NONE, false);
 
         for (Tram tram: tramService.getByDayAndPrice(day)){
             Row row = sheet.createRow(indexRow++);
@@ -45,7 +38,7 @@ public class CreaterMain {
             cell.setCellStyle(cellStyle);
 
             cell = row.createCell(2);
-            cell.setCellValue(ticketService.sumTicketsByTram(day, tram)/7);
+            cell.setCellValue(ticketService.sumTicketsByTram(day, tram) /7);
             cell.setCellStyle(cellStyle);
 
             cell = row.createCell(3);
@@ -78,13 +71,7 @@ public class CreaterMain {
 
     public int createMainTravelCard(int indexRow, Workbook workbook, Sheet sheet, LocalDate day){
 
-        CellStyle cellStyle = workbook.createCellStyle();
-        cellStyle.setAlignment(HorizontalAlignment.CENTER);
-
-        XSSFFont fontInner = ((XSSFWorkbook) workbook).createFont();
-        fontInner.setFontName(StyleConstance.FONT_NAME);
-        fontInner.setFontHeightInPoints((short) 12);
-        cellStyle.setFont(fontInner);
+        CellStyle cellStyle = new SheetStyle().setStyle(workbook, 12, BorderStyle.NONE, false);
 
         for (Ticket ticket: ticketService.getTravelCards(day)){
             Row row = sheet.createRow(indexRow++);
@@ -108,13 +95,7 @@ public class CreaterMain {
 
     public int createTicketsByDepo(int indexRow, Workbook workbook, Sheet sheet, LocalDate day, String depo){
 
-        CellStyle cellStyle = workbook.createCellStyle();
-        cellStyle.setAlignment(HorizontalAlignment.CENTER);
-
-        XSSFFont fontInner = ((XSSFWorkbook) workbook).createFont();
-        fontInner.setFontName(StyleConstance.FONT_NAME);
-        fontInner.setFontHeightInPoints((short) 12);
-        cellStyle.setFont(fontInner);
+        CellStyle cellStyle = new SheetStyle().setStyle(workbook, 12, BorderStyle.NONE, false);
 
         for (String track: trackService.getListTracks(day, depo)){
             Row row = sheet.createRow(indexRow++);

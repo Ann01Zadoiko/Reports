@@ -1,11 +1,10 @@
-package com.example.demo.creater;
+package com.example.demo.excel.table;
 
-import com.example.demo.constance.StyleConstance;
+import com.example.demo.excel.constance.StyleConstance;
+import com.example.demo.excel.style.SheetStyle;
 import com.example.demo.ticket.TicketService;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFFont;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -19,13 +18,7 @@ public class CreaterButtom {
 
     public void createRowMain(int indexRow, Workbook workbook, Sheet sheet, LocalDate day){
 
-        CellStyle cellStyle = workbook.createCellStyle();
-        cellStyle.setAlignment(HorizontalAlignment.CENTER);
-
-        XSSFFont fontInner = ((XSSFWorkbook) workbook).createFont();
-        fontInner.setFontName(StyleConstance.FONT_NAME);
-        fontInner.setFontHeightInPoints((short) 12);
-        cellStyle.setFont(fontInner);
+        CellStyle cellStyle = new SheetStyle().setStyle(workbook, 12, BorderStyle.NONE, false);
 
         Row amountRow = sheet.createRow(++indexRow);
 
@@ -44,13 +37,7 @@ public class CreaterButtom {
 
     public void createTravelCard(int indexRow, Workbook workbook, Sheet sheet, LocalDate day, List<String> depo){
 
-        CellStyle cellStyle = workbook.createCellStyle();
-        cellStyle.setAlignment(HorizontalAlignment.CENTER);
-
-        XSSFFont fontInner = ((XSSFWorkbook) workbook).createFont();
-        fontInner.setFontName(StyleConstance.FONT_NAME);
-        fontInner.setFontHeightInPoints((short) 12);
-        cellStyle.setFont(fontInner);
+        CellStyle cellStyle = new SheetStyle().setStyle(workbook, 12, BorderStyle.NONE, false);
 
         for (String s : depo) {
             Row row = sheet.createRow(++indexRow);
@@ -77,13 +64,7 @@ public class CreaterButtom {
 
     public void createTicketsByDepo(int indexRow, Workbook workbook, Sheet sheet, LocalDate day, String depo){
 
-        CellStyle cellStyle = workbook.createCellStyle();
-        cellStyle.setAlignment(HorizontalAlignment.CENTER);
-
-        XSSFFont fontInner = ((XSSFWorkbook) workbook).createFont();
-        fontInner.setFontName(StyleConstance.FONT_NAME);
-        fontInner.setFontHeightInPoints((short) 12);
-        cellStyle.setFont(fontInner);
+        CellStyle cellStyle = new SheetStyle().setStyle(workbook, 12, BorderStyle.NONE, false);
 
         Row amountRow = sheet.createRow(++indexRow);
 

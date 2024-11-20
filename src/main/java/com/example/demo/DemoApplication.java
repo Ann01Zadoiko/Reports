@@ -12,8 +12,7 @@ import org.springframework.context.annotation.ComponentScan;
 		"com.example.demo.track",
 		"com.example.demo.combine",
 		"com.example.demo.download",
-		"com.example.demo.sheet",
-		"com.example.demo.creater"})
+		"com.example.demo.excel"})
 public class DemoApplication {
 
 	public static void main(String[] args) {
