@@ -52,6 +52,14 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             </div>
+            <div th:if="${param.error}">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Sorry!</strong> File has already existed
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+            <h1 class="mb-3">Доступні дати:</h1>
+            <p th:each="day : ${days}" th:text="${day}"></p>
         </div>
     </div>
 </div>

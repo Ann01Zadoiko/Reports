@@ -12,6 +12,7 @@ import org.springframework.context.annotation.ComponentScan;
 		"com.example.demo.track",
 		"com.example.demo.combine",
 		"com.example.demo.download",
+		"com.example.demo.file",
 		"com.example.demo.excel"})
 public class DemoApplication {
 

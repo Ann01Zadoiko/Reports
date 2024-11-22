@@ -75,7 +75,7 @@ public class ImportTracks implements Import{
                     trackService.add(track);
                     continue;
                 } else {
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
                     localTime = LocalTime.parse(row.getCell(2).getStringCellValue(), formatter);
 
                     secondPart = row.getCell(3).getStringCellValue();
@@ -90,6 +90,8 @@ public class ImportTracks implements Import{
                 track.setDay(day);
 
                 trackService.add(track);
+
+                trackService.deleteDuplicates();
             }
         } catch (IOException e) {
             throw new RuntimeException(e);

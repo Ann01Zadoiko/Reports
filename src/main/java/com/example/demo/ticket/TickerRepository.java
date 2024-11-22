@@ -26,6 +26,10 @@ public interface TickerRepository extends JpaRepository<Ticket, Long> {
     int sumTravelCard(LocalDate day);
 
     @Query(nativeQuery = true,
+            value = "select count(*) from tickets t where t.day = :day and t.price>7")
+    int countTravelCard(LocalDate day);
+
+    @Query(nativeQuery = true,
             value = "select sum(t.price) from tickets t " +
             "join trams tr on t.id_tram = tr.id " +
             "where t.day = :day and t.price=7 and tr.depo = :depo")
@@ -56,4 +60,14 @@ public interface TickerRepository extends JpaRepository<Ticket, Long> {
                     "(tr.time>t.time and tr.first_part=:track ) or " +
                     "(tr.time<t.time and tr.second_part=:track) )")
     Integer sumTicketsByDepoAndTrack(LocalDate day, String depo, String track);
+
+    @Query(nativeQuery = true,
+            value = "select sum(t.price) from tickets t " +
+                    "where t.day=:day and t.travel_card=:travelCard")
+    Integer sumByTravelCardAndDay(LocalDate day, String travelCard);
+
+    @Query(nativeQuery = true,
+            value = "select count(*) from tickets t " +
+                    "where t.day=:day and t.travel_card=:travelCard")
+    Integer countByTravelCardAndDay(LocalDate day, String travelCard);
 }

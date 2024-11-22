@@ -34,6 +34,9 @@ public class Ticket {
     @Column(name = "time")
     private LocalTime time;
 
+    @Column(name = "travel_card")
+    private String travelCard;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_track")
     private Track track;

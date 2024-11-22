@@ -8,4 +8,5 @@ public interface FieldConstance {
     String TRACK = "Маршнут";
     String PRICE = "Ціна";
     String DEPO = "Депо";
+    String TRAVEL_CARD = "Вид проїздного";
 }

@@ -25,24 +25,13 @@ public class TrackService {
         return trackRepository.findByDayAndIdTram(day, id);
     }
 
-    public List<Track> getByTram(Tram tram){
-        return trackRepository.findByTram(tram);
-    }
-
-    public boolean isExists(Track track){
-        List<Track> tracks = getByTram(track.getTram());
-
-        for (Track track1: tracks){
-            if (track.getDay().equals(track1.getDay())){
-                return true;
-            }
-        }
-
-        return false;
-    }
 
     public List<String> getListTracks(LocalDate day, String depo){
         return trackRepository.listTracks(day, depo);
+    }
+
+    public void deleteDuplicates(){
+        trackRepository.deleteDuplicates();
     }
 
 }

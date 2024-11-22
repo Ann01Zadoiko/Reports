@@ -1,5 +1,7 @@
 package com.example.demo.importData;
 
+import com.example.demo.file.FileTicket;
+import com.example.demo.file.FileTicketService;
 import com.example.demo.ticket.Ticket;
 import com.example.demo.ticket.TicketService;
 import com.example.demo.tram.TramService;
@@ -23,6 +25,7 @@ public class ImportTickets implements Import{
 
     private final TramService tramService;
     private final TicketService ticketService;
+    private final FileTicketService fileTicketService;
 
     //импорт данных из файла в таблицу tickets по депо и дню
     @Override
@@ -32,6 +35,10 @@ public class ImportTickets implements Import{
         try (InputStream inputStream = file.getInputStream()){
 
             Sheet sheet;
+
+            FileTicket fileTicket = new FileTicket();
+            fileTicket.setName(file.getOriginalFilename());
+            fileTicketService.add(fileTicket);
 
             //проверка формата файла
             if (file.getOriginalFilename().endsWith(".xls")){
@@ -65,6 +72,8 @@ public class ImportTickets implements Import{
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                 LocalDateTime date = LocalDateTime.parse(dayString, formatter);
 
+                String travelCard = row.getCell(4).getStringCellValue();
+
                 String price = row.getCell(5).getStringCellValue().strip();
 
                 //добавление билета в бд
@@ -73,6 +82,7 @@ public class ImportTickets implements Import{
                 ticket.setTime(date.toLocalTime());
                 ticket.setTram(tramService.getByDepoAndNumberOfTram(depoT, numberOfTram));
                 ticket.setPrice(Integer.valueOf(price.substring(0, price.length()-3)));
+                ticket.setTravelCard(travelCard);
 
                 ticketService.add(ticket);
             }

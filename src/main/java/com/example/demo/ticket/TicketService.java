@@ -53,4 +53,18 @@ public class TicketService {
         Integer sum = tickerRepository.sumTicketsByDepoAndTrack(day, depo, track);
         return sum != null ? sum : 0;
     }
+
+    public int sumByTravelCardAndDay(LocalDate day, String travelCard){
+        Integer sum = tickerRepository.sumByTravelCardAndDay(day, travelCard);
+        return sum != null ? sum : 0;
+    }
+
+    public int countByTravelCardAndDay(LocalDate day, String travelCard){
+        Integer count = tickerRepository.countByTravelCardAndDay(day, travelCard);
+        return count != null ? count : 0;
+    }
+
+    public int countTravelCards(LocalDate day){
+        return tickerRepository.countTravelCard(day);
+    }
 }

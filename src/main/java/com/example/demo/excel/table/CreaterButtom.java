@@ -80,4 +80,23 @@ public class CreaterButtom {
         amountCell.setCellValue(ticketService.sumTicketsByDepo(day, depo));
         amountCell.setCellStyle(cellStyle);
     }
+
+    public void createTravelCards(int indexRow, Workbook workbook, Sheet sheet, LocalDate day){
+
+        CellStyle cellStyle = new SheetStyle().setStyle(workbook, 12, BorderStyle.NONE, false);
+
+        Row amountRow = sheet.createRow(++indexRow);
+
+        Cell amountCell = amountRow.createCell(0);
+        amountCell.setCellValue(StyleConstance.AMOUNT);
+        amountCell.setCellStyle(cellStyle);
+
+        amountCell = amountRow.createCell(1);
+        amountCell.setCellValue(ticketService.countTravelCards(day));
+        amountCell.setCellStyle(cellStyle);
+
+        amountCell = amountRow.createCell(2);
+        amountCell.setCellValue(ticketService.sumTravelCard(day));
+        amountCell.setCellStyle(cellStyle);
+    }
 }

@@ -21,6 +21,12 @@ create table tickets(
     id_track bigint,
     price int,
     time time,
+    travel_card varchar(150),
     foreign key (id_tram) references trams(id),
     foreign key (id_track) references tracks(id)
+);
+
+create table files(
+    id bigint auto_increment primary key,
+    name varchar(50)
 );

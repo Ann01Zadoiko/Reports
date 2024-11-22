@@ -12,6 +12,7 @@ import org.apache.poi.ss.usermodel.*;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -110,6 +111,29 @@ public class CreaterMain {
 
             cell = row.createCell(2);
             cell.setCellValue(ticketService.sumByDepoAndTrack(day, depo, track));
+            cell.setCellStyle(cellStyle);
+        }
+
+        return indexRow;
+    }
+
+    public int createTravelCards(int indexRow, Workbook workbook, Sheet sheet, LocalDate day, List<String> list){
+
+        CellStyle cellStyle = new SheetStyle().setStyle(workbook, 12, BorderStyle.NONE, false);
+
+        for (String s: list){
+            Row row = sheet.createRow(indexRow++);
+
+            Cell cell = row.createCell(0);
+            cell.setCellValue(s);
+            cell.setCellStyle(cellStyle);
+
+            cell = row.createCell(1);
+            cell.setCellValue(ticketService.countByTravelCardAndDay(day, s));
+            cell.setCellStyle(cellStyle);
+
+            cell = row.createCell(2);
+            cell.setCellValue(ticketService.sumByTravelCardAndDay(day, s));
             cell.setCellStyle(cellStyle);
         }
 
