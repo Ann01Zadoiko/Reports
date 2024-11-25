@@ -26,8 +26,20 @@ public interface TickerRepository extends JpaRepository<Ticket, Long> {
     int sumTravelCard(LocalDate day);
 
     @Query(nativeQuery = true,
+            value = "select sum(t.price) from tickets t " +
+                    "join trams tr on t.id_tram=tr.id " +
+                    "where t.day = :day and t.price>7 and tr.depo=:depo")
+    int sumTravelCardDepo(LocalDate day, String depo);
+
+    @Query(nativeQuery = true,
             value = "select count(*) from tickets t where t.day = :day and t.price>7")
     int countTravelCard(LocalDate day);
+
+    @Query(nativeQuery = true,
+            value = "select count(*) from tickets t " +
+                    "join trams tr on t.id_tram=tr.id " +
+                    "where t.day = :day and t.price>7 and tr.depo=:depo")
+    int countTravelCardDepo(LocalDate day, String depo);
 
     @Query(nativeQuery = true,
             value = "select sum(t.price) from tickets t " +
@@ -70,4 +82,16 @@ public interface TickerRepository extends JpaRepository<Ticket, Long> {
             value = "select count(*) from tickets t " +
                     "where t.day=:day and t.travel_card=:travelCard")
     Integer countByTravelCardAndDay(LocalDate day, String travelCard);
+
+    @Query(nativeQuery = true,
+            value = "select sum(t.price) from tickets t " +
+                    "join trams tr on t.id_tram=tr.id " +
+                    "where t.day=:day and t.travel_card=:travelCard and tr.depo=:depo")
+    Integer sumByTravelCardAndDayAndDepo(LocalDate day, String travelCard, String depo);
+
+    @Query(nativeQuery = true,
+            value = "select count(*) from tickets t " +
+                    "join trams tr on t.id_tram=tr.id " +
+                    "where t.day=:day and t.travel_card=:travelCard and tr.depo=:depo")
+    Integer countByTravelCardAndDayAndDepo(LocalDate day, String travelCard, String depo);
 }

@@ -22,6 +22,7 @@ public class SheetMain {
     private final Combine combine;
     private final SheetTicketsDepo sheetTicketsDepo;
     private final SheetTravelCards sheetTravelCards;
+    private final SheetTravelCardsDepo sheetTravelCardsDepo;
 
     public String createWorkbook(LocalDate day) throws IOException {
 
@@ -41,6 +42,10 @@ public class SheetMain {
             sheetTravelCard.createTable(day, workbook, DepoConstance.DEPOS);
 
             sheetTravelCards.createTable(day, workbook);
+
+            sheetTravelCardsDepo.createTable(day, workbook, DepoConstance.DEPOS.get(0));
+            sheetTravelCardsDepo.createTable(day, workbook, DepoConstance.DEPOS.get(1));
+            sheetTravelCardsDepo.createTable(day, workbook, DepoConstance.DEPOS.get(2));
 
             workbook.write(fileOutputStream);
         }

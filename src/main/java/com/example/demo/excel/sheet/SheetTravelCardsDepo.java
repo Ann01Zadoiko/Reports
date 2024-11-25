@@ -16,26 +16,27 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class SheetTravelCards {
+public class SheetTravelCardsDepo {
 
     private final CreaterMain createrMain;
     private final CreaterButtom createrButtom;
 
-    public void createTable(LocalDate day, Workbook workbook){
-        List<String> list = Arrays.asList(
-            FieldConstance.TRAVEL_CARD, FieldConstance.COUNT_OF_TICKETS, FieldConstance.AMOUNT);
+    public void createTable(LocalDate day, Workbook workbook, String depo){
 
-        Sheet sheet = workbook.createSheet("Всі проїздні");
-        sheet.setColumnWidth(0, 6000);
+        List<String> list = Arrays.asList(
+                FieldConstance.TRAVEL_CARD, FieldConstance.COUNT_OF_TICKETS, FieldConstance.AMOUNT);
+
+        Sheet sheet = workbook.createSheet("Проїздні за " + depo);
+        sheet.setColumnWidth(0, 8000);
         sheet.setColumnWidth(1, 6000);
 
         new CreaterHeader().createHeaderTickets(workbook, sheet, list);
 
         int indexRow = 1;
 
-        int rowMain = createrMain.createTravelCards(indexRow, workbook, sheet, day, TravelCardConstance.list);
+        int rowMain = createrMain.createTravelCardsDepo(indexRow, workbook, sheet, day, TravelCardConstance.list, depo);
 
-        createrButtom.createTravelCards(rowMain, workbook, sheet,day);
+        createrButtom.createTravelCardsDepo(rowMain, workbook, sheet,day, depo);
 
     }
 }

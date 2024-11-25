@@ -139,4 +139,27 @@ public class CreaterMain {
 
         return indexRow;
     }
+
+    public int createTravelCardsDepo(int indexRow, Workbook workbook, Sheet sheet, LocalDate day, List<String> list, String depo){
+
+        CellStyle cellStyle = new SheetStyle().setStyle(workbook, 12, BorderStyle.NONE, false);
+
+        for (String s: list){
+            Row row = sheet.createRow(indexRow++);
+
+            Cell cell = row.createCell(0);
+            cell.setCellValue(s);
+            cell.setCellStyle(cellStyle);
+
+            cell = row.createCell(1);
+            cell.setCellValue(ticketService.countByTravelCardAndDayAndDepo(day, s, depo));
+            cell.setCellStyle(cellStyle);
+
+            cell = row.createCell(2);
+            cell.setCellValue(ticketService.sumByTravelCardAndDayAndDepo(day, s, depo));
+            cell.setCellStyle(cellStyle);
+        }
+
+        return indexRow;
+    }
 }
