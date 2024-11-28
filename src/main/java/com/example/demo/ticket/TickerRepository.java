@@ -1,5 +1,6 @@
 package com.example.demo.ticket;
 
+import com.example.demo.tram.Tram;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,6 +17,8 @@ public interface TickerRepository extends JpaRepository<Ticket, Long> {
 
     @Query("SELECT DISTINCT t.day FROM Ticket t")
     List<LocalDate> findDistinctDays();
+
+    List<Ticket> findByDayAndTram(LocalDate day, Tram tram);
 
     @Query(nativeQuery = true,
             value = "select sum(t.price) from tickets t where t.day =:day and t.price=7")

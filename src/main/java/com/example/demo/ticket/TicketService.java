@@ -25,6 +25,10 @@ public class TicketService {
         return tickerRepository.findDistinctDays();
     }
 
+    public List<Ticket> getByDayAndTram(LocalDate day, Tram tram){
+        return tickerRepository.findByDayAndTram(day, tram);
+    }
+
     public int sumTickets(LocalDate day){
         return tickerRepository.sumTickets(day);
     }

@@ -5,6 +5,7 @@ import com.example.demo.track.TrackService;
 import com.example.demo.tram.Tram;
 import com.example.demo.tram.TramService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -19,7 +20,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ImportTracks implements Import{
@@ -91,11 +92,9 @@ public class ImportTracks implements Import{
 
                 trackService.add(track);
 
-                trackService.deleteDuplicates();
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-
 }

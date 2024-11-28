@@ -25,13 +25,21 @@ public class TrackService {
         return trackRepository.findByDayAndIdTram(day, id);
     }
 
-
     public List<String> getListTracks(LocalDate day, String depo){
         return trackRepository.listTracks(day, depo);
     }
 
-    public void deleteDuplicates(){
-        trackRepository.deleteDuplicates();
+    public void delete(Track track){
+        trackRepository.delete(track);
     }
+
+    public List<Track> getByDayAndTram(LocalDate day,Tram tram){
+        return trackRepository.findByDayAndTram(day, tram);
+    }
+
+    public List<Track> getAll(){
+        return trackRepository.findAll();
+    }
+
 
 }
