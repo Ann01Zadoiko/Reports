@@ -4,7 +4,6 @@ package com.example.demo.track;
 import com.example.demo.importData.ImportTracks;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @RequestMapping("/v1/tracks")
@@ -22,13 +19,13 @@ public class TrackController {
 
     private final ImportTracks importTracks;
 
-    //отображение страницы
+    //show a page for uploading a file
     @GetMapping
     public String showUploadForm(){
         return "/tracks/upload";
     }
 
-    //загрузка файла
+    //upload a file
     @PostMapping
     public String upload(
             @RequestParam("file") MultipartFile file,

@@ -22,7 +22,7 @@ public class TicketController {
     private final TicketService ticketService;
     private final FileTicketService fileTicketService;
 
-    //отображение страницы
+    //show a page of uploading a file
     @GetMapping
     public String showUploadForm(Model model) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM(MMMM).yyyy");
@@ -34,7 +34,7 @@ public class TicketController {
         return "/tickets/index";
     }
 
-    //загрузка файла
+    //upload a file
     @PostMapping
     public String uploadFile(@RequestParam("file") MultipartFile file) {
 

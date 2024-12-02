@@ -28,7 +28,7 @@ public class ImportTracks implements Import{
     private final TramService tramService;
     private final TrackService trackService;
 
-    //импорт данных из файла в таблицу tracks
+    //import data from a file into tracks (table)
     @Override
     public void importExcelToData(MultipartFile file, String depo, LocalDate day) {
 

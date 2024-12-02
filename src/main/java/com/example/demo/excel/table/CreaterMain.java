@@ -3,6 +3,9 @@ package com.example.demo.excel.table;
 import com.example.demo.excel.style.SheetStyle;
 import com.example.demo.ticket.Ticket;
 import com.example.demo.ticket.TicketService;
+import com.example.demo.ticket.count.CountTravelCardService;
+import com.example.demo.ticket.sum.SumTicketService;
+import com.example.demo.ticket.sum.SumTravelCardService;
 import com.example.demo.track.Track;
 import com.example.demo.track.TrackService;
 import com.example.demo.tram.Tram;
@@ -21,6 +24,9 @@ public class CreaterMain {
     private final TramService tramService;
     private final TicketService ticketService;
     private final TrackService trackService;
+    private final CountTravelCardService countTravelCardService;
+    private final SumTicketService sumTicketService;
+    private final SumTravelCardService sumTravelCardService;
 
     //создание основной части таблицы из базы данных
     public int createRowMain(int indexRow, Workbook workbook, Sheet sheet, LocalDate day){
@@ -39,11 +45,11 @@ public class CreaterMain {
             cell.setCellStyle(cellStyle);
 
             cell = row.createCell(2);
-            cell.setCellValue(ticketService.sumTicketsByTram(day, tram) /7);
+            cell.setCellValue(sumTicketService.sumTicketsByTram(day, tram) /15);
             cell.setCellStyle(cellStyle);
 
             cell = row.createCell(3);
-            cell.setCellValue(ticketService.sumTicketsByTram(day, tram));
+            cell.setCellValue(sumTicketService.sumTicketsByTram(day, tram));
             cell.setCellStyle(cellStyle);
 
             Track track = trackService.getByDayAndIdTram(day, tram.getId());
@@ -106,11 +112,11 @@ public class CreaterMain {
             cell.setCellStyle(cellStyle);
 
             cell = row.createCell(1);
-            cell.setCellValue(ticketService.sumByDepoAndTrack(day, depo, track)/7);
+            cell.setCellValue(sumTicketService.sumTicketsByDepoAndTrack(day, depo, track)/15);
             cell.setCellStyle(cellStyle);
 
             cell = row.createCell(2);
-            cell.setCellValue(ticketService.sumByDepoAndTrack(day, depo, track));
+            cell.setCellValue(sumTicketService.sumTicketsByDepoAndTrack(day, depo, track));
             cell.setCellStyle(cellStyle);
         }
 
@@ -129,11 +135,11 @@ public class CreaterMain {
             cell.setCellStyle(cellStyle);
 
             cell = row.createCell(1);
-            cell.setCellValue(ticketService.countByTravelCardAndDay(day, s));
+            cell.setCellValue(countTravelCardService.countByTravelCardAndDay(day, s));
             cell.setCellStyle(cellStyle);
 
             cell = row.createCell(2);
-            cell.setCellValue(ticketService.sumByTravelCardAndDay(day, s));
+            cell.setCellValue(sumTravelCardService.sumByTravelCardAndDay(day, s));
             cell.setCellStyle(cellStyle);
         }
 
@@ -152,11 +158,11 @@ public class CreaterMain {
             cell.setCellStyle(cellStyle);
 
             cell = row.createCell(1);
-            cell.setCellValue(ticketService.countByTravelCardAndDayAndDepo(day, s, depo));
+            cell.setCellValue(countTravelCardService.countByTravelCardAndDayAndDepo(day, s, depo));
             cell.setCellStyle(cellStyle);
 
             cell = row.createCell(2);
-            cell.setCellValue(ticketService.sumByTravelCardAndDayAndDepo(day, s, depo));
+            cell.setCellValue(sumTravelCardService.sumByTravelCardAndDayAndDepo(day, s, depo));
             cell.setCellStyle(cellStyle);
         }
 

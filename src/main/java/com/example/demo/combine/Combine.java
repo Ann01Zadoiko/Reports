@@ -14,19 +14,19 @@ import java.util.*;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class Combine {
+public class Combine implements ICombine{
 
     private final TicketService ticketService;
     private final TrackService trackService;
 
-    //добавить значение id_track в таблицу tickets по дате
-    public void combineLong(LocalDate day){
+    //add id_track (value) into tickets (table) by date
+    @Override
+    public void combineTrackAndTicketsByDay(LocalDate day){
         List<Ticket> tickets = ticketService.getByDay(day);
         List<Track> tracks = trackService.getByDay(day);
 
         for (Ticket ticket: tickets){
             for (Track track: tracks){
-                //добавить значение id_track в соответсвующий ticket
                 if (track.getTram().equals(ticket.getTram())){
                     ticket.setTrack(track);
                     ticketService.add(ticket);
@@ -35,5 +35,4 @@ public class Combine {
         }
         log.info("Tracks have added to tickets");
     }
-
 }

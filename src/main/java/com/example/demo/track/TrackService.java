@@ -1,6 +1,6 @@
 package com.example.demo.track;
 
-import com.example.demo.tram.Tram;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -9,37 +9,32 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Service
-public class TrackService {
+public class TrackService implements ITrackService{
 
     private final TrackRepository trackRepository;
 
+    //add a new track
+    @Override
     public void add(Track track){
         trackRepository.save(track);
     }
 
+    //get a list of tracks by a day
+    @Override
     public List<Track> getByDay(LocalDate day){
         return trackRepository.findByDay(day);
     }
 
+    //get the track by a day and id tram
+    @Override
     public Track getByDayAndIdTram(LocalDate day, Long id){
         return trackRepository.findByDayAndIdTram(day, id);
     }
 
+    //get a list of tracks by a day and a depo
+    @Override
     public List<String> getListTracks(LocalDate day, String depo){
         return trackRepository.listTracks(day, depo);
     }
-
-    public void delete(Track track){
-        trackRepository.delete(track);
-    }
-
-    public List<Track> getByDayAndTram(LocalDate day,Tram tram){
-        return trackRepository.findByDayAndTram(day, tram);
-    }
-
-    public List<Track> getAll(){
-        return trackRepository.findAll();
-    }
-
 
 }

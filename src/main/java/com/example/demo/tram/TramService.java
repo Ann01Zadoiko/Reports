@@ -9,16 +9,19 @@ import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
-public class TramService {
+public class TramService implements ITramService{
 
     private final TramRepository tramRepository;
 
+    //add a new tram
+    @Override
     public void add(Tram tram){
         tramRepository.save(tram);
     }
 
+    //check a tram by depo and number
+    @Override
     public boolean isExists(String depo, String numberOfTram){
-
         List<Tram> trams = tramRepository.findByDepo(depo);
         for (Tram tram:  trams){
             if (tram.getNumberOfTram().equals(numberOfTram)){
@@ -29,8 +32,9 @@ public class TramService {
         return false;
     }
 
+    //get the tram by depo and number
+    @Override
     public Tram getByDepoAndNumberOfTram(String depo, String numberOfTram){
-
         if (!isExists(depo, numberOfTram)){
             Tram tram = new Tram();
             tram.setNumberOfTram(numberOfTram);
@@ -41,18 +45,30 @@ public class TramService {
         return tramRepository.findByDepoAndNumberOfTram(depo, numberOfTram);
     }
 
+    //get a list of trams
+    @Override
     public List<Tram> getAll(){
         return tramRepository.findAll();
     }
 
+    //delete a tram by id
+    @Override
     public void deleteById(Long id){
         tramRepository.deleteById(id);
     }
 
+    //get a tram by id
+    @Override
     public Tram getById(Long id){
-        return tramRepository.findById(id).get();
+        if (tramRepository.findById(id).isEmpty() || tramRepository.findById(id).isPresent()){
+            return  tramRepository.findById(id).get();
+        }
+
+        return null;
     }
 
+    //get set of trams by a day and price is 15
+    @Override
     public Set<Tram> getByDayAndPrice(LocalDate day){
         return tramRepository.findByDayAndPrice(day);
     }

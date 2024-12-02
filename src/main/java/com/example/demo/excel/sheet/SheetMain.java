@@ -27,7 +27,7 @@ public class SheetMain {
 
     public String createWorkbook(LocalDate day) throws IOException {
 
-        combine.combineLong(day);
+        combine.combineTrackAndTicketsByDay(day);
 
         File file = new CreaterFile().createFile(day);
 

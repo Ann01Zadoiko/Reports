@@ -5,8 +5,9 @@ import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-public class SheetStyle {
+public class SheetStyle implements ISheetStyle{
 
+    @Override
     public CellStyle setStyle(Workbook workbook, int size, BorderStyle borderStyle, boolean isBold){
         CellStyle headerStyle = workbook.createCellStyle();
         headerStyle.setBorderBottom(borderStyle);

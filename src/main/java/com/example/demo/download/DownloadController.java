@@ -31,6 +31,7 @@ public class DownloadController {
     private String downloadFile;
     private final SheetMain sheetMain;
 
+    //show a page and available dates
     @GetMapping("/")
     public String showDownloadPage(Model model){
 
@@ -42,6 +43,7 @@ public class DownloadController {
         return "/tickets/download";
     }
 
+    //create a file by a day
     @SneakyThrows
     @PostMapping("/")
     public String download(@RequestParam("day") LocalDate day){
@@ -50,6 +52,7 @@ public class DownloadController {
         return "redirect:/v1/reports/download";
     }
 
+    //download a file in directory (downloaded)
     @GetMapping("/download")
     public ResponseEntity<Resource> downloadFile() {
 
