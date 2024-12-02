@@ -1,9 +1,9 @@
 package com.example.demo.excel.sheet;
 
 import com.example.demo.excel.constance.FieldConstance;
-import com.example.demo.excel.table.CreaterButtom;
-import com.example.demo.excel.table.CreaterHeader;
-import com.example.demo.excel.table.CreaterMain;
+import com.example.demo.excel.table.TableHeader;
+import com.example.demo.excel.table.buttom.TableDepoTicketButtom;
+import com.example.demo.excel.table.main.TableDepoTicketMain;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -18,8 +18,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SheetTicketsDepo {
 
-    private final CreaterMain createrMain;
-    private final CreaterButtom createrButtom;
+    private final TableDepoTicketMain main;
+    private final TableDepoTicketButtom buttom;
 
     public void createTable(LocalDate day, Workbook workbook, String depo){
 
@@ -31,13 +31,13 @@ public class SheetTicketsDepo {
         sheet.setColumnWidth(0, 4000);
         sheet.setColumnWidth(1, 6000);
 
-        new CreaterHeader().createHeaderTickets(workbook, sheet, list);
+        new TableHeader().createHeaderTickets(workbook, sheet, list);
 
         int indexRow = 1;
 
-        int rowMain = createrMain.createTicketsByDepo(indexRow, workbook, sheet, day, depo);
+        int rowMain = main.createMain(indexRow, workbook, sheet, day, depo);
 
-        createrButtom.createTicketsByDepo(rowMain, workbook, sheet,day, depo);
+        buttom.createMain(rowMain, workbook, sheet,day, depo);
 
     }
 }

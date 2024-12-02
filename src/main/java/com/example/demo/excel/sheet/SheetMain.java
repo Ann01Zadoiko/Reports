@@ -2,7 +2,7 @@ package com.example.demo.excel.sheet;
 
 import com.example.demo.combine.Combine;
 import com.example.demo.excel.constance.DepoConstance;
-import com.example.demo.excel.table.CreaterFile;
+import com.example.demo.excel.table.TableFile;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -18,7 +18,6 @@ import java.time.LocalDate;
 public class SheetMain {
 
     private final SheetTickets sheetTickets;
-    private final SheetTravelCard sheetTravelCard;
     private final Combine combine;
     private final SheetTicketsDepo sheetTicketsDepo;
     private final SheetTravelCards sheetTravelCards;
@@ -29,7 +28,7 @@ public class SheetMain {
 
         combine.combineTrackAndTicketsByDay(day);
 
-        File file = new CreaterFile().createFile(day);
+        File file = new TableFile().createFile(day);
 
         try (Workbook workbook = new XSSFWorkbook();
              FileOutputStream fileOutputStream = new FileOutputStream(file)){
@@ -39,8 +38,6 @@ public class SheetMain {
             sheetTicketsDepo.createTable(day, workbook, DepoConstance.DEPOS.get(0));
             sheetTicketsDepo.createTable(day, workbook, DepoConstance.DEPOS.get(1));
             sheetTicketsDepo.createTable(day, workbook, DepoConstance.DEPOS.get(2));
-
-            sheetTravelCard.createTable(day, workbook, DepoConstance.DEPOS);
 
             sheetTravelCards.createTable(day, workbook);
 

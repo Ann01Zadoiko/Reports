@@ -2,9 +2,9 @@ package com.example.demo.excel.sheet;
 
 import com.example.demo.excel.constance.FieldConstance;
 import com.example.demo.excel.constance.TravelCardConstance;
-import com.example.demo.excel.table.CreaterButtom;
-import com.example.demo.excel.table.CreaterHeader;
-import com.example.demo.excel.table.CreaterMain;
+import com.example.demo.excel.table.TableHeader;
+import com.example.demo.excel.table.buttom.TableRegularCardButtom;
+import com.example.demo.excel.table.main.TableRegularCardMain;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -18,8 +18,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SheetTravelCards {
 
-    private final CreaterMain createrMain;
-    private final CreaterButtom createrButtom;
+    private final TableRegularCardMain main;
+    private final TableRegularCardButtom buttom;
 
     public void createTable(LocalDate day, Workbook workbook){
         List<String> list = Arrays.asList(
@@ -29,13 +29,13 @@ public class SheetTravelCards {
         sheet.setColumnWidth(0, 6000);
         sheet.setColumnWidth(1, 6000);
 
-        new CreaterHeader().createHeaderTickets(workbook, sheet, list);
+        new TableHeader().createHeaderTickets(workbook, sheet, list);
 
         int indexRow = 1;
 
-        int rowMain = createrMain.createTravelCards(indexRow, workbook, sheet, day, TravelCardConstance.list);
+        int rowMain = main.createMain(indexRow, workbook, sheet, day, TravelCardConstance.list);
 
-        createrButtom.createTravelCards(rowMain, workbook, sheet,day);
+        buttom.createMain(rowMain, workbook, sheet,day);
 
     }
 }

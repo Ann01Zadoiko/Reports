@@ -1,9 +1,9 @@
 package com.example.demo.excel.sheet;
 
 import com.example.demo.excel.constance.FieldConstance;
-import com.example.demo.excel.table.CreaterButtom;
-import com.example.demo.excel.table.CreaterHeader;
-import com.example.demo.excel.table.CreaterMain;
+import com.example.demo.excel.table.TableHeader;
+import com.example.demo.excel.table.buttom.TableRegularTicketButtom;
+import com.example.demo.excel.table.main.TableRegularTicketMain;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -17,8 +17,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SheetTickets {
 
-    private final CreaterMain createrMain;
-    private final CreaterButtom createrButtom;
+    private final TableRegularTicketButtom buttom;
+    private final TableRegularTicketMain main;
 
     public void createTable(LocalDate day, Workbook workbook){
 
@@ -37,13 +37,13 @@ public class SheetTickets {
         sheet.setColumnWidth(4, 4500);
         sheet.setColumnWidth(5, 4500);
 
-        new CreaterHeader().createHeaderTickets(workbook, sheet, list);
+        new TableHeader().createHeaderTickets(workbook, sheet, list);
 
         int indexRow = 1;
 
-        int rowMain = createrMain.createRowMain(indexRow, workbook, sheet, day);
+        int rowMain = main.createMain(indexRow, workbook, sheet, day);
 
-        createrButtom.createRowMain(rowMain, workbook, sheet,day);
+        buttom.createMain(rowMain, workbook, sheet,day);
 
     }
 }

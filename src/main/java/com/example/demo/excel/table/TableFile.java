@@ -6,7 +6,7 @@ import java.io.File;
 import java.time.LocalDate;
 
 @Slf4j
-public class CreaterFile {
+public class TableFile {
 
     //создание файла в директории reports
     public File createFile(LocalDate day){

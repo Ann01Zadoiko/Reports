@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class CreaterHeader {
+public class TableHeader {
 
     public void createHeaderTickets(Workbook workbook, Sheet sheet, List<String> headerList){
         Row headerRow = sheet.createRow(0);
