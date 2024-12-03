@@ -19,6 +19,7 @@ import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 @Slf4j
 @Service
@@ -29,17 +30,17 @@ public class ImportTracks implements Import{
     private final TrackService trackService;
 
 
-    //import data from a file into tracks (table)
+    //import data from a file into tracks (table) by depo and day
     @Override
-    public void importExcelToData(MultipartFile file, String depo, LocalDate day) {
+    public void importExcelToData(MultipartFile file, String depo, LocalDate day) throws RuntimeException{
 
-        //обрабока входящего файла
+        //processing an incoming file
         try (InputStream inputStream = file.getInputStream()){
 
             Sheet sheet;
 
-            //проверка формата файла
-            if (file.getOriginalFilename().endsWith(".xls")){
+            //check format of the file
+            if (Objects.requireNonNull(file.getOriginalFilename()).endsWith(".xls") && !(file.isEmpty())){
                 HSSFWorkbook workbook = new HSSFWorkbook(inputStream);
                 sheet = workbook.getSheetAt(0);
             } else {
@@ -47,16 +48,17 @@ public class ImportTracks implements Import{
                 sheet = workbook.getSheetAt(0);
             }
 
-            //пропуск 0-строки
+            //read data and selection data from cell
             for (Row row: sheet){
-                //пропуск 0-строки
+
+                //skip 0-row
                 if (row.getRowNum() == 0){
                     continue;
                 }
 
-                //отбор данных из ячейки
                 String number = row.getCell(0).getStringCellValue();
 
+                //stop reading data
                 if (number.isEmpty()){
                     break;
                 }
@@ -67,7 +69,10 @@ public class ImportTracks implements Import{
                 String secondPart;
                 LocalTime localTime;
 
-                if (row.getCell(2) == null || row.getCell(2).getStringCellValue() == null || row.getCell(2).getStringCellValue().isEmpty()){
+                if (row.getCell(2) == null ||
+                        row.getCell(2).getStringCellValue() == null ||
+                        row.getCell(2).getStringCellValue().isEmpty() ||
+                        row.getCell(2).getStringCellValue().equals("00:00:00")){
 
                     Track track = new Track();
                     track.setTram(tram);
@@ -83,7 +88,6 @@ public class ImportTracks implements Import{
                     secondPart = row.getCell(3).getStringCellValue();
                 }
 
-                //добавление маршрута в бд
                 Track track = new Track();
                 track.setTram(tram);
                 track.setFirstPart(firstPart);
@@ -91,6 +95,7 @@ public class ImportTracks implements Import{
                 track.setTime(localTime);
                 track.setDay(day);
 
+                //save a data in db
                 trackService.add(track);
 
             }

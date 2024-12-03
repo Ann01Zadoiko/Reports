@@ -15,6 +15,7 @@ public class TableRegularTicketButtom implements ITableRegularButtom{
 
     private final SumTicketService sumTicketService;
 
+    //insert a button part of tickets
     @Override
     public void createMain(int indexRow, Workbook workbook, Sheet sheet, LocalDate day) {
         CellStyle cellStyle = new SheetStyle().setStyle(workbook, 12, BorderStyle.NONE, false);
@@ -25,10 +26,12 @@ public class TableRegularTicketButtom implements ITableRegularButtom{
         amountCell.setCellValue(StyleConstance.AMOUNT);
         amountCell.setCellStyle(cellStyle);
 
+        //insert the cell by count
         amountCell = amountRow.createCell(2);
-        amountCell.setCellValue(sumTicketService.sumTickets(day)/7);
+        amountCell.setCellValue(sumTicketService.sumTickets(day)/15);
         amountCell.setCellStyle(cellStyle);
 
+        //insert the cell by sum
         amountCell = amountRow.createCell(3);
         amountCell.setCellValue(sumTicketService.sumTickets(day));
         amountCell.setCellStyle(cellStyle);

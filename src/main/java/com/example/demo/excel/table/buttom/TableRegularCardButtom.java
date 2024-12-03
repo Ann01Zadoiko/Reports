@@ -17,6 +17,7 @@ public class TableRegularCardButtom implements ITableRegularButtom{
     private final CountTravelCardService countTravelCardService;
     private final SumTravelCardService sumTravelCardService;
 
+    //create a button part for travel cards
     @Override
     public void createMain(int indexRow, Workbook workbook, Sheet sheet, LocalDate day) {
         CellStyle cellStyle = new SheetStyle().setStyle(workbook, 12, BorderStyle.NONE, false);
@@ -27,10 +28,12 @@ public class TableRegularCardButtom implements ITableRegularButtom{
         amountCell.setCellValue(StyleConstance.AMOUNT);
         amountCell.setCellStyle(cellStyle);
 
+        //insert the cell by count
         amountCell = amountRow.createCell(1);
         amountCell.setCellValue(countTravelCardService.countTravelCard(day));
         amountCell.setCellStyle(cellStyle);
 
+        //insert the cell by sum
         amountCell = amountRow.createCell(2);
         amountCell.setCellValue(sumTravelCardService.sumTravelCard(day));
         amountCell.setCellStyle(cellStyle);

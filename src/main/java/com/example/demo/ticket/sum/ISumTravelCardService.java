@@ -8,7 +8,7 @@ public interface ISumTravelCardService {
 
     int sumTravelCardDepo(LocalDate day, String depo);
 
-    int sumTravelCardByDepo(LocalDate day, String depo);
+ //   int sumTravelCardByDepo(LocalDate day, String depo);
 
     Integer sumByTravelCardAndDay(LocalDate day, String travelCard);
 

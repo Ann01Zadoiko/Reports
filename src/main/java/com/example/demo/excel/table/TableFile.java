@@ -8,7 +8,7 @@ import java.time.LocalDate;
 @Slf4j
 public class TableFile {
 
-    //создание файла в директории reports
+    //create a file in reports (folder)
     public File createFile(LocalDate day){
         String builder = "./src/main/resources/reports/general_" + day + ".xlsx";
         log.info("File has created with path: {}", builder);

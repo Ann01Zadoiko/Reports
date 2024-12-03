@@ -20,6 +20,7 @@ public class TableRegularTicketMain {
     private final SumTicketService sumTicketService;
     private final TrackService trackService;
 
+    //create a main part of the sheet for tickets
     public int createMain(int indexRow, Workbook workbook, Sheet sheet, LocalDate day){
 
         CellStyle cellStyle = new SheetStyle().setStyle(workbook, 12, BorderStyle.NONE, false);
@@ -27,24 +28,29 @@ public class TableRegularTicketMain {
         for (Tram tram: tramService.getByDayAndPrice(day)){
             Row row = sheet.createRow(indexRow++);
 
+            //insert the cell by depo
             Cell cell = row.createCell(0);
             cell.setCellValue(tram.getDepo());
             cell.setCellStyle(cellStyle);
 
+            //insert the cell by number of tram
             cell = row.createCell(1);
             cell.setCellValue(tram.getNumberOfTram());
             cell.setCellStyle(cellStyle);
 
+            //insert the cell by count of tickets
             cell = row.createCell(2);
             cell.setCellValue(sumTicketService.sumTicketsByTram(day, tram) /15);
             cell.setCellStyle(cellStyle);
 
+            //insert the cell by sum of tickets
             cell = row.createCell(3);
             cell.setCellValue(sumTicketService.sumTicketsByTram(day, tram));
             cell.setCellStyle(cellStyle);
 
             Track track = trackService.getByDayAndIdTram(day, tram.getId());
 
+            //insert cells by track
             cell = row.createCell(4);
             if (track != null){
                 cell.setCellValue(track.getFirstPart());

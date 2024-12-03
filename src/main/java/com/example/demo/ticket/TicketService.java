@@ -12,20 +12,19 @@ public class TicketService {
 
     private final TickerRepository tickerRepository;
 
+    //add new ticket
     public void add(Ticket ticket){
         tickerRepository.save(ticket);
     }
 
+    //get a list of tickets by day
     public List<Ticket> getByDay(LocalDate day){
         return tickerRepository.findByDay(day);
     }
 
+    //get a unique list of tickets by day
     public List<LocalDate> getLocalDate(){
         return tickerRepository.findDistinctDays();
-    }
-
-    public List<Ticket> getTravelCards(LocalDate day){
-        return tickerRepository.findTravelCard(day);
     }
 
 }

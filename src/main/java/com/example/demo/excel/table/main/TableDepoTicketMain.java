@@ -16,6 +16,7 @@ public class TableDepoTicketMain {
     private final TrackService trackService;
     private final SumTicketService sumTicketService;
 
+    //create a main part of tickets by depo
     public int createMain(int indexRow, Workbook workbook, Sheet sheet, LocalDate day, String depo){
 
         CellStyle cellStyle = new SheetStyle().setStyle(workbook, 12, BorderStyle.NONE, false);
@@ -23,14 +24,17 @@ public class TableDepoTicketMain {
         for (String track: trackService.getListTracks(day, depo)){
             Row row = sheet.createRow(indexRow++);
 
+            //insert the cell by track
             Cell cell = row.createCell(0);
             cell.setCellValue(track);
             cell.setCellStyle(cellStyle);
 
+            //insert the cell by count of tickets
             cell = row.createCell(1);
             cell.setCellValue(sumTicketService.sumTicketsByDepoAndTrack(day, depo, track)/15);
             cell.setCellStyle(cellStyle);
 
+            //insert the cell by sum of tickets
             cell = row.createCell(2);
             cell.setCellValue(sumTicketService.sumTicketsByDepoAndTrack(day, depo, track));
             cell.setCellStyle(cellStyle);

@@ -20,8 +20,9 @@ public class SheetTickets {
     private final TableRegularTicketButtom buttom;
     private final TableRegularTicketMain main;
 
+    //create the sheet for tickets
     public void createTable(LocalDate day, Workbook workbook){
-
+        //list of headers
         List<String> list = Arrays.asList(
                 FieldConstance.DEPO,
                 FieldConstance.TRAM,
@@ -31,18 +32,22 @@ public class SheetTickets {
                 FieldConstance.TRACK + " 2"
         );
 
+        //set name for the sheet
         Sheet sheet = workbook.createSheet("Звіт за " + day);
         sheet.setColumnWidth(0, 6000);
         sheet.setColumnWidth(2, 6000);
         sheet.setColumnWidth(4, 4500);
         sheet.setColumnWidth(5, 4500);
 
+        //add header
         new TableHeader().createHeaderTickets(workbook, sheet, list);
 
         int indexRow = 1;
 
+        //add main part
         int rowMain = main.createMain(indexRow, workbook, sheet, day);
 
+        //add button
         buttom.createMain(rowMain, workbook, sheet,day);
 
     }

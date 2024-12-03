@@ -18,6 +18,7 @@ import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -27,11 +28,11 @@ public class ImportTickets implements Import{
     private final TicketService ticketService;
     private final FileTicketService fileTicketService;
 
-    //импорт данных из файла в таблицу tickets по депо и дню
+    //import data from a file into tickets (table) by depo and day
     @Override
     public void importExcelToData(MultipartFile file, String depo, LocalDate day){
 
-        //обрабока входящего файла
+        //processing an incoming file
         try (InputStream inputStream = file.getInputStream()){
 
             Sheet sheet;
@@ -40,9 +41,9 @@ public class ImportTickets implements Import{
             fileTicket.setName(file.getOriginalFilename());
             fileTicketService.add(fileTicket);
 
-            //проверка формата файла
-            if (file.getOriginalFilename().endsWith(".xls")){
-                //создание листа
+            //check format of the file
+            if (Objects.requireNonNull(file.getOriginalFilename()).endsWith(".xls") && !(file.isEmpty())){
+                //create a sheet
                 HSSFWorkbook workbook = new HSSFWorkbook(inputStream);
                 sheet = workbook.getSheetAt(0);
             } else {
@@ -50,16 +51,19 @@ public class ImportTickets implements Import{
                 sheet = workbook.getSheetAt(0);
             }
 
+            //read data and selection data from cell
             for(Row row: sheet) {
-                //пропуск 0-строки
+
+                //skip 0-row
                 if (row.getRowNum() == 0){
                     continue;
                 }
 
-                //отбор данных из ячейки
+
                 String rowDay = row.getCell(1).getStringCellValue();
                 String dayString;
 
+                //stop reading data
                 if (rowDay.isEmpty()){
                     break;
                 } else {
@@ -76,7 +80,6 @@ public class ImportTickets implements Import{
 
                 String price = row.getCell(5).getStringCellValue().strip();
 
-                //добавление билета в бд
                 Ticket ticket = new Ticket();
                 ticket.setDay(date.toLocalDate());
                 ticket.setTime(date.toLocalTime());
@@ -84,6 +87,7 @@ public class ImportTickets implements Import{
                 ticket.setPrice(Integer.valueOf(price.substring(0, price.length()-3)));
                 ticket.setTravelCard(travelCard);
 
+                //save a data in db
                 ticketService.add(ticket);
             }
         } catch (IOException e) {

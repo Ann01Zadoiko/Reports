@@ -16,9 +16,4 @@ public interface TickerRepository extends JpaRepository<Ticket, Long> {
 
     @Query("SELECT DISTINCT t.day FROM Ticket t")
     List<LocalDate> findDistinctDays();
-
-    @Query(nativeQuery = true,
-            value = "select t.* from tickets t where t.day =:day and t.price>15")
-    List<Ticket> findTravelCard(LocalDate day);
-
 }

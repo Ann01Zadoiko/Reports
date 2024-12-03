@@ -7,6 +7,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class SheetStyle implements ISheetStyle{
 
+    //set style for a sheet
     @Override
     public CellStyle setStyle(Workbook workbook, int size, BorderStyle borderStyle, boolean isBold){
         CellStyle headerStyle = workbook.createCellStyle();

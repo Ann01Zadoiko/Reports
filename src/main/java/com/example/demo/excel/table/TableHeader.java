@@ -10,6 +10,7 @@ import java.util.List;
 @Service
 public class TableHeader {
 
+    //create header for a sheet
     public void createHeaderTickets(Workbook workbook, Sheet sheet, List<String> headerList){
         Row headerRow = sheet.createRow(0);
 

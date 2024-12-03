@@ -21,21 +21,27 @@ public class SheetTravelCardsDepo {
     private final TableDepoCardMain main;
     private final TableDepoCardButtom buttom;
 
+    //create a sheet for travel card by depo
     public void createTable(LocalDate day, Workbook workbook, String depo){
 
+        //list of header
         List<String> list = Arrays.asList(
                 FieldConstance.TRAVEL_CARD, FieldConstance.COUNT_OF_TICKETS, FieldConstance.AMOUNT);
 
+        //name of the sheet
         Sheet sheet = workbook.createSheet("Проїздні за " + depo);
         sheet.setColumnWidth(0, 8000);
         sheet.setColumnWidth(1, 6000);
 
+        //add the header of the sheet
         new TableHeader().createHeaderTickets(workbook, sheet, list);
 
         int indexRow = 1;
 
+        //add the main part of the sheet
         int rowMain = main.createMain(indexRow, workbook, sheet, day, TravelCardConstance.list, depo);
 
+        //add the button of the sheet
         buttom.createMain(rowMain, workbook, sheet,day, depo);
 
     }

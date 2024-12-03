@@ -15,6 +15,7 @@ public class TableDepoTicketButtom implements ITableDepoButtom{
 
     private final SumTicketService sumTicketService;
 
+    //create a button part for tickets by depo
     @Override
     public void createMain(int indexRow, Workbook workbook, Sheet sheet, LocalDate day, String depo) {
         CellStyle cellStyle = new SheetStyle().setStyle(workbook, 12, BorderStyle.NONE, false);
@@ -25,10 +26,12 @@ public class TableDepoTicketButtom implements ITableDepoButtom{
         amountCell.setCellValue(StyleConstance.AMOUNT);
         amountCell.setCellStyle(cellStyle);
 
+        //insert the cell by count
         amountCell = amountRow.createCell(1);
-        amountCell.setCellValue(sumTicketService.sumTicketsByDepo(day, depo)/7);
+        amountCell.setCellValue(sumTicketService.sumTicketsByDepo(day, depo)/15);
         amountCell.setCellStyle(cellStyle);
 
+        //insert the cell by sum
         amountCell = amountRow.createCell(2);
         amountCell.setCellValue(sumTicketService.sumTicketsByDepo(day, depo));
         amountCell.setCellStyle(cellStyle);

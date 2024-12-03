@@ -18,6 +18,7 @@ public class TableDepoCardButtom implements ITableDepoButtom{
     private final CountTravelCardService countTravelCardService;
     private final SumTravelCardService sumTravelCardService;
 
+    //create a button part for travel cards by depo
     @Override
     public void createMain(int indexRow, Workbook workbook, Sheet sheet, LocalDate day, String depo) {
         CellStyle cellStyle = new SheetStyle().setStyle(workbook, 12, BorderStyle.NONE, false);
@@ -28,10 +29,12 @@ public class TableDepoCardButtom implements ITableDepoButtom{
         amountCell.setCellValue(StyleConstance.AMOUNT);
         amountCell.setCellStyle(cellStyle);
 
+        //insert the cell by count
         amountCell = amountRow.createCell(1);
         amountCell.setCellValue(countTravelCardService.countTravelCardDepo(day,depo));
         amountCell.setCellStyle(cellStyle);
 
+        //insert the cell by sum
         amountCell = amountRow.createCell(2);
         amountCell.setCellValue(sumTravelCardService.sumTravelCardDepo(day, depo));
         amountCell.setCellStyle(cellStyle);
