@@ -29,7 +29,7 @@ public class SheetTravelCards {
 
         //set name for the sheet
         Sheet sheet = workbook.createSheet("Всі проїздні");
-        sheet.setColumnWidth(0, 6000);
+        sheet.setColumnWidth(0, 10000);
         sheet.setColumnWidth(1, 6000);
 
         //add header

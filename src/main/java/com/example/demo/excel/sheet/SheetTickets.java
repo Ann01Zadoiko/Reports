@@ -33,7 +33,7 @@ public class SheetTickets {
         );
 
         //set name for the sheet
-        Sheet sheet = workbook.createSheet("Звіт за " + day);
+        Sheet sheet = workbook.createSheet("Звіт з одноразових квітків");
         sheet.setColumnWidth(0, 6000);
         sheet.setColumnWidth(2, 6000);
         sheet.setColumnWidth(4, 4500);

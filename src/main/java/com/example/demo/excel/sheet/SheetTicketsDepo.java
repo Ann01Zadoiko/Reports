@@ -29,7 +29,7 @@ public class SheetTicketsDepo {
         );
 
         //set name for the sheet
-        Sheet sheet = workbook.createSheet(depo);
+        Sheet sheet = workbook.createSheet("Одноразові квитки за " + depo);
         sheet.setColumnWidth(0, 4000);
         sheet.setColumnWidth(1, 6000);
 

@@ -30,7 +30,7 @@ public class SheetTravelCardsDepo {
 
         //name of the sheet
         Sheet sheet = workbook.createSheet("Проїздні за " + depo);
-        sheet.setColumnWidth(0, 8000);
+        sheet.setColumnWidth(0, 10000);
         sheet.setColumnWidth(1, 6000);
 
         //add the header of the sheet
