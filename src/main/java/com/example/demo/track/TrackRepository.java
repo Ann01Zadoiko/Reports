@@ -25,4 +25,9 @@ public interface TrackRepository extends JpaRepository<Track, Long> {
                     "where tr.day=:day and tm.depo=:depo")
     List<String> listTracks(LocalDate day, String depo);
 
+    @Query(value = "SELECT DISTINCT tr.day, tm.depo " +
+            "FROM tracks tr " +
+            "JOIN trams tm ON tr.id_tram = tm.id",
+            nativeQuery = true)
+    List<Object[]> findDistinctDayAndDepo();
 }

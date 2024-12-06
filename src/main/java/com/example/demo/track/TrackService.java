@@ -37,4 +37,8 @@ public class TrackService implements ITrackService{
         return trackRepository.listTracks(day, depo);
     }
 
+    public List<Object[]> getDayAndDepo() {
+        return trackRepository.findDistinctDayAndDepo();
+    }
+
 }

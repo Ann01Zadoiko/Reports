@@ -16,4 +16,6 @@ public interface TickerRepository extends JpaRepository<Ticket, Long> {
 
     @Query("SELECT DISTINCT t.day FROM Ticket t")
     List<LocalDate> findDistinctDays();
+
+
 }
