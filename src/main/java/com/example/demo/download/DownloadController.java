@@ -66,6 +66,9 @@ public class DownloadController {
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getName() + "\"");
 
+        //success
+        //error
+
         return ResponseEntity.ok()
                 .headers(headers)
                 .body(resource);

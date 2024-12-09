@@ -2,7 +2,7 @@ package com.example.demo.excel.sheet;
 
 import com.example.demo.excel.constance.FieldConstance;
 import com.example.demo.excel.table.TableHeader;
-import com.example.demo.excel.table.buttom.TableDepoTicketButtom;
+import com.example.demo.excel.table.bottom.TableDepoTicketBottom;
 import com.example.demo.excel.table.main.TableDepoTicketMain;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -19,7 +19,7 @@ import java.util.List;
 public class SheetTicketsDepo {
 
     private final TableDepoTicketMain main;
-    private final TableDepoTicketButtom buttom;
+    private final TableDepoTicketBottom bottom;
 
     //create the sheet for tickets by depo
     public void createTable(LocalDate day, Workbook workbook, String depo){
@@ -42,7 +42,7 @@ public class SheetTicketsDepo {
         int rowMain = main.createMain(indexRow, workbook, sheet, day, depo);
 
         //add button
-        buttom.createMain(rowMain, workbook, sheet,day, depo);
+        bottom.createBottom(rowMain, workbook, sheet,day, depo);
 
     }
 }

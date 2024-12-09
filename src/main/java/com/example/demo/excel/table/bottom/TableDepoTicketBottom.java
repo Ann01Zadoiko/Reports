@@ -1,4 +1,4 @@
-package com.example.demo.excel.table.buttom;
+package com.example.demo.excel.table.bottom;
 
 import com.example.demo.excel.constance.StyleConstance;
 import com.example.demo.excel.style.SheetStyle;
@@ -9,31 +9,31 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 
-@Service
 @RequiredArgsConstructor
-public class TableRegularTicketButtom implements ITableRegularButtom{
+@Service
+public class TableDepoTicketBottom implements ITableDepoBottom {
 
     private final SumTicketService sumTicketService;
 
-    //insert a button part of tickets
+    //create a button part for tickets by depo
     @Override
-    public void createMain(int indexRow, Workbook workbook, Sheet sheet, LocalDate day) {
+    public void createBottom(int indexRow, Workbook workbook, Sheet sheet, LocalDate day, String depo) {
         CellStyle cellStyle = new SheetStyle().setStyle(workbook, 12, BorderStyle.NONE, false);
 
         Row amountRow = sheet.createRow(++indexRow);
 
-        Cell amountCell = amountRow.createCell(1);
+        Cell amountCell = amountRow.createCell(0);
         amountCell.setCellValue(StyleConstance.AMOUNT);
         amountCell.setCellStyle(cellStyle);
 
         //insert the cell by count
-        amountCell = amountRow.createCell(2);
-        amountCell.setCellValue(sumTicketService.sumTickets(day)/15);
+        amountCell = amountRow.createCell(1);
+        amountCell.setCellValue(sumTicketService.sumTicketsByDepo(day, depo)/15);
         amountCell.setCellStyle(cellStyle);
 
         //insert the cell by sum
-        amountCell = amountRow.createCell(3);
-        amountCell.setCellValue(sumTicketService.sumTickets(day));
+        amountCell = amountRow.createCell(2);
+        amountCell.setCellValue(sumTicketService.sumTicketsByDepo(day, depo));
         amountCell.setCellStyle(cellStyle);
     }
 }

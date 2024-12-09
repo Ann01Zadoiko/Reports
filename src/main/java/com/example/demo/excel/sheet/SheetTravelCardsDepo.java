@@ -3,7 +3,7 @@ package com.example.demo.excel.sheet;
 import com.example.demo.excel.constance.FieldConstance;
 import com.example.demo.excel.constance.TravelCardConstance;
 import com.example.demo.excel.table.TableHeader;
-import com.example.demo.excel.table.buttom.TableDepoCardButtom;
+import com.example.demo.excel.table.bottom.TableDepoCardBottom;
 import com.example.demo.excel.table.main.TableDepoCardMain;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -19,7 +19,7 @@ import java.util.List;
 public class SheetTravelCardsDepo {
 
     private final TableDepoCardMain main;
-    private final TableDepoCardButtom buttom;
+    private final TableDepoCardBottom bottom;
 
     //create a sheet for travel card by depo
     public void createTable(LocalDate day, Workbook workbook, String depo){
@@ -42,7 +42,7 @@ public class SheetTravelCardsDepo {
         int rowMain = main.createMain(indexRow, workbook, sheet, day, TravelCardConstance.list, depo);
 
         //add the button of the sheet
-        buttom.createMain(rowMain, workbook, sheet,day, depo);
+        bottom.createBottom(rowMain, workbook, sheet,day, depo);
 
     }
 }
