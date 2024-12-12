@@ -30,4 +30,10 @@ public interface TrackRepository extends JpaRepository<Track, Long> {
             "JOIN trams tm ON tr.id_tram = tm.id",
             nativeQuery = true)
     List<Object[]> findDistinctDayAndDepo();
+
+    @Query("SELECT t FROM Track t " +
+            "WHERE (t.day, t.tram.numberOfTram) IN " +
+            "(SELECT t2.day, t2.tram.numberOfTram FROM Track t2 " +
+            "GROUP BY t2.day, t2.tram.numberOfTram HAVING COUNT(t2) > 1)")
+    List<Track> findDuplicateTracksDetailed();
 }

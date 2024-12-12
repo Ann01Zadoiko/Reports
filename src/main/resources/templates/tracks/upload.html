@@ -56,8 +56,23 @@
                 </div>
                 <button type="submit" class="btn btn-primary mb-5">Завантажити</button>
             </form>
+
+            <table class="table table-striped">
+                <tbody>
+                <tr th:each="track : ${duplicateTracks}">
+                    <td th:text="${track.id}"></td>
+                    <td th:text="${track.tram.numberOfTram}"></td>
+                    <td th:text="${track.firstPart}"></td>
+                    <td th:text="${track.time}"></td>
+                    <td th:text="${track.secondPart}"></td>
+                    <td th:text="${track.day}"></td>
+                    <td><a th:href="@{/v1/tracks/delete/{id}(id=${track.id})}">Delete</a></td>
+                </tr>
+                </tbody>
+            </table>
+
             <h3>Заванаженні дати та Депо:</h3>
-            <table >
+            <table>
                 <tbody>
                 <tr th:each="item : ${dayAndDepoList}">
                     <td th:text="${item[0]}"></td>

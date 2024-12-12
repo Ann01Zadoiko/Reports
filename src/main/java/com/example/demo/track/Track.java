@@ -37,7 +37,7 @@ public class Track {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "track", cascade = CascadeType.ALL)
     private List<Ticket> tickets;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_tram")
     private Tram tram;
 

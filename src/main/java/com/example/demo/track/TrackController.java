@@ -5,10 +5,7 @@ import com.example.demo.importData.ImportTracks;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
@@ -28,6 +25,10 @@ public class TrackController {
         List<Object[]> dayAndDepoList = trackService.getDayAndDepo();
         model.addAttribute("dayAndDepoList", dayAndDepoList);
 
+        // Получение повторяющихся записей
+        List<Track> duplicateTracks = trackService.findDuplicateTracksDetailed();
+        model.addAttribute("duplicateTracks", duplicateTracks);
+
         return "/tracks/upload";
     }
 
@@ -42,5 +43,12 @@ public class TrackController {
 
         return "redirect:/v1/tracks?success";
     }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable("id") Long id){
+        trackService.deleteById(id);
+        return "redirect:/v1/tracks";
+    }
+
 
 }

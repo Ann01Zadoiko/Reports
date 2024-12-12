@@ -3,6 +3,7 @@ package com.example.demo.track;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -39,6 +40,15 @@ public class TrackService implements ITrackService{
 
     public List<Object[]> getDayAndDepo() {
         return trackRepository.findDistinctDayAndDepo();
+    }
+
+    public List<Track> findDuplicateTracksDetailed(){
+        return trackRepository.findDuplicateTracksDetailed();
+    }
+
+    @Transactional
+    public void deleteById(Long id){
+        trackRepository.deleteById(id);
     }
 
 }
