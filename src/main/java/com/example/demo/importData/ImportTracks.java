@@ -63,6 +63,10 @@ public class ImportTracks implements Import{
                     break;
                 }
 
+                if (number.length() < 4 && (depo.equals("Депо №1 трамвай") || depo.equals("Депо №2 трамвай"))){
+
+                }
+
                 Tram tram = tramService.getByDepoAndNumberOfTram(depo, number);
 
                 String firstPart = row.getCell(1).getStringCellValue();
