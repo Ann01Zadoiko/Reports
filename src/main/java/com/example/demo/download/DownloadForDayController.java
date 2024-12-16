@@ -1,6 +1,6 @@
 package com.example.demo.download;
 
-import com.example.demo.excel.sheet.SheetMain;
+import com.example.demo.excel.workbook.WorkbookForDay;
 import com.example.demo.ticket.TicketService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -25,11 +25,12 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/v1/reports")
-public class DownloadController {
+public class DownloadForDayController {
 
     private final TicketService ticketService;
     private String downloadFile;
-    private final SheetMain sheetMain;
+    private final WorkbookForDay workbookForDay;
+ //   private final SheetMain sheetMain;
 
     //show a page and available dates
     @GetMapping("/")
@@ -47,7 +48,7 @@ public class DownloadController {
     @SneakyThrows
     @PostMapping("/")
     public String download(@RequestParam("day") LocalDate day){
-        downloadFile = sheetMain.createWorkbook(day);
+        downloadFile = workbookForDay.createWorkbook(day);
 
         return "redirect:/v1/reports/download";
     }

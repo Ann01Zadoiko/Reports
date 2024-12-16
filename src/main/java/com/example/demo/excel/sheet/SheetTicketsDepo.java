@@ -1,6 +1,6 @@
 package com.example.demo.excel.sheet;
 
-import com.example.demo.excel.constance.FieldConstance;
+import com.example.demo.excel.constance.Field;
 import com.example.demo.excel.table.TableHeader;
 import com.example.demo.excel.table.bottom.TableDepoTicketBottom;
 import com.example.demo.excel.table.main.TableDepoTicketMain;
@@ -25,7 +25,9 @@ public class SheetTicketsDepo {
     public void createTable(LocalDate day, Workbook workbook, String depo){
         //list headers
         List<String> list = Arrays.asList(
-                FieldConstance.TRACK, FieldConstance.COUNT_OF_TICKETS, FieldConstance.AMOUNT
+                Field.TRACK.getFullName(),
+                Field.COUNT_OF_TICKETS.getFullName(),
+                Field.AMOUNT.getFullName()
         );
 
         //set name for the sheet

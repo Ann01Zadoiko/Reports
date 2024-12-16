@@ -1,6 +1,6 @@
 package com.example.demo.excel.table.bottom;
 
-import com.example.demo.excel.constance.StyleConstance;
+import com.example.demo.excel.constance.Style;
 import com.example.demo.excel.style.SheetStyle;
 import com.example.demo.ticket.count.CountTravelCardService;
 import com.example.demo.ticket.sum.SumTravelCardService;
@@ -25,7 +25,7 @@ public class TableRegularCardBottom implements ITableRegularBottom {
         Row amountRow = sheet.createRow(++indexRow);
 
         Cell amountCell = amountRow.createCell(0);
-        amountCell.setCellValue(StyleConstance.AMOUNT);
+        amountCell.setCellValue(Style.AMOUNT.getFullName());
         amountCell.setCellStyle(cellStyle);
 
         //insert the cell by count

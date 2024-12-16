@@ -1,5 +1,6 @@
 package com.example.demo.excel.table.main;
 
+import com.example.demo.excel.constance.TravelCard;
 import com.example.demo.excel.style.SheetStyle;
 import com.example.demo.ticket.count.CountTravelCardService;
 import com.example.demo.ticket.sum.SumTravelCardService;
@@ -18,26 +19,26 @@ public class TableRegularCardMain {
     private final SumTravelCardService sumTravelCardService;
 
     //create a main part of the sheet travel card
-    public int createMain(int indexRow, Workbook workbook, Sheet sheet, LocalDate day, List<String> list){
+    public int createMain(int indexRow, Workbook workbook, Sheet sheet, LocalDate day){
 
         CellStyle cellStyle = new SheetStyle().setStyle(workbook, 12, BorderStyle.NONE, false);
 
-        for (String s: list){
+        for (TravelCard travelCard: TravelCard.values()){
             Row row = sheet.createRow(indexRow++);
 
             //insert the cell by type of tickets
             Cell cell = row.createCell(0);
-            cell.setCellValue(s);
+            cell.setCellValue(travelCard.getFullName());
             cell.setCellStyle(cellStyle);
 
             //insert the cell by count of travel cards by day and type
             cell = row.createCell(1);
-            cell.setCellValue(countTravelCardService.countByTravelCardAndDay(day, s));
+            cell.setCellValue(countTravelCardService.countByTravelCardAndDay(day, travelCard.getFullName()));
             cell.setCellStyle(cellStyle);
 
             //insert the cell by sum of travel cards by day and type
             cell = row.createCell(2);
-            cell.setCellValue(sumTravelCardService.sumByTravelCardAndDay(day, s));
+            cell.setCellValue(sumTravelCardService.sumByTravelCardAndDay(day, travelCard.getFullName()));
             cell.setCellStyle(cellStyle);
         }
 

@@ -1,7 +1,11 @@
-package com.example.demo.excel.sheet;
+package com.example.demo.excel.workbook;
 
 import com.example.demo.combine.Combine;
-import com.example.demo.excel.constance.DepoConstance;
+import com.example.demo.excel.constance.Depo;
+import com.example.demo.excel.sheet.SheetTickets;
+import com.example.demo.excel.sheet.SheetTicketsDepo;
+import com.example.demo.excel.sheet.SheetTravelCards;
+import com.example.demo.excel.sheet.SheetTravelCardsDepo;
 import com.example.demo.excel.table.TableFile;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -15,7 +19,7 @@ import java.time.LocalDate;
 
 @Service
 @RequiredArgsConstructor
-public class SheetMain {
+public class WorkbookForDay {
 
     private final SheetTickets sheetTickets;
     private final Combine combine;
@@ -40,17 +44,17 @@ public class SheetMain {
             sheetTickets.createTable(day, workbook);
 
             //add sheets of tickets by depo
-            sheetTicketsDepo.createTable(day, workbook, DepoConstance.DEPOS.get(0));
-            sheetTicketsDepo.createTable(day, workbook, DepoConstance.DEPOS.get(1));
-            sheetTicketsDepo.createTable(day, workbook, DepoConstance.DEPOS.get(2));
+            sheetTicketsDepo.createTable(day, workbook, Depo.TRAM_1.getFullName());
+            sheetTicketsDepo.createTable(day, workbook, Depo.TRAM_2.getFullName());
+            sheetTicketsDepo.createTable(day, workbook, Depo.TROLL.getFullName());
 
             //add a sheet of travel cards
             sheetTravelCards.createTable(day, workbook);
 
             //add a sheet of travel cards by depo
-            sheetTravelCardsDepo.createTable(day, workbook, DepoConstance.DEPOS.get(0));
-            sheetTravelCardsDepo.createTable(day, workbook, DepoConstance.DEPOS.get(1));
-            sheetTravelCardsDepo.createTable(day, workbook, DepoConstance.DEPOS.get(2));
+            sheetTravelCardsDepo.createTable(day, workbook, Depo.TRAM_1.getFullName());
+            sheetTravelCardsDepo.createTable(day, workbook, Depo.TRAM_2.getFullName());
+            sheetTravelCardsDepo.createTable(day, workbook, Depo.TROLL.getFullName());
 
             workbook.write(fileOutputStream);
         }

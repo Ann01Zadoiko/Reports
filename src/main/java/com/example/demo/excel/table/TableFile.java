@@ -14,4 +14,9 @@ public class TableFile {
         log.info("File has created with path: {}", builder);
         return new File(builder);
     }
+
+    public File createFileForMonth(int month, int year, String depo){
+        String string = "./src/main/resources/reports/" + depo + "_" + month + "." + year + ".xlsx";
+        return new File(string);
+    }
 }

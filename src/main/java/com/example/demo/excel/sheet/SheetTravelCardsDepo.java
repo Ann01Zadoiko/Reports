@@ -1,7 +1,6 @@
 package com.example.demo.excel.sheet;
 
-import com.example.demo.excel.constance.FieldConstance;
-import com.example.demo.excel.constance.TravelCardConstance;
+import com.example.demo.excel.constance.Field;
 import com.example.demo.excel.table.TableHeader;
 import com.example.demo.excel.table.bottom.TableDepoCardBottom;
 import com.example.demo.excel.table.main.TableDepoCardMain;
@@ -26,7 +25,9 @@ public class SheetTravelCardsDepo {
 
         //list of header
         List<String> list = Arrays.asList(
-                FieldConstance.TRAVEL_CARD, FieldConstance.COUNT_OF_TICKETS, FieldConstance.AMOUNT);
+                Field.TRAVEL_CARD.getFullName(),
+                Field.COUNT_OF_TICKETS.getFullName(),
+                Field.AMOUNT.getFullName());
 
         //name of the sheet
         Sheet sheet = workbook.createSheet("Проїздні за " + depo);
@@ -39,7 +40,7 @@ public class SheetTravelCardsDepo {
         int indexRow = 1;
 
         //add the main part of the sheet
-        int rowMain = main.createMain(indexRow, workbook, sheet, day, TravelCardConstance.list, depo);
+        int rowMain = main.createMain(indexRow, workbook, sheet, day, depo);
 
         //add the button of the sheet
         bottom.createBottom(rowMain, workbook, sheet,day, depo);
