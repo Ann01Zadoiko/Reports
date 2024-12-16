@@ -11,6 +11,7 @@ import org.apache.poi.ss.usermodel.*;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -25,7 +26,13 @@ public class TableRegularTicketMain {
 
         CellStyle cellStyle = new SheetStyle().setStyle(workbook, 12, BorderStyle.NONE, false);
 
-        for (Tram tram: tramService.getByDayAndPrice(day)){
+        Set<Tram> byDayAndPrice = tramService.getByDayAndPrice(day);
+        List<Tram> list = new ArrayList<>(byDayAndPrice);
+
+        Comparator<Tram> comparing = Comparator.comparing(Tram::getDepo);
+        list.sort(comparing);
+
+        for (Tram tram: list){
             Row row = sheet.createRow(indexRow++);
 
             //insert the cell by depo

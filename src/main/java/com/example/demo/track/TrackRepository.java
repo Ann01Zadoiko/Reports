@@ -32,8 +32,9 @@ public interface TrackRepository extends JpaRepository<Track, Long> {
     List<Object[]> findDistinctDayAndDepo();
 
     @Query("SELECT t FROM Track t " +
-            "WHERE (t.day, t.tram.numberOfTram) IN " +
-            "(SELECT t2.day, t2.tram.numberOfTram FROM Track t2 " +
-            "GROUP BY t2.day, t2.tram.numberOfTram HAVING COUNT(t2) > 1)")
+            "WHERE (t.day, t.tram.id) IN " +
+            "(SELECT t2.day, t2.tram.id FROM Track t2 " +
+            "GROUP BY t2.day, t2.tram.id HAVING COUNT(t2) > 1)")
     List<Track> findDuplicateTracksDetailed();
+    //numberOfTram
 }

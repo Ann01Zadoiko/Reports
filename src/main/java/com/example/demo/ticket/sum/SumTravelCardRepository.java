@@ -18,7 +18,7 @@ public interface SumTravelCardRepository extends JpaRepository<Ticket, Long> {
             value = "select sum(t.price) from tickets t " +
                     "join trams tr on t.id_tram=tr.id " +
                     "where t.day = :day and t.price>15 and tr.depo=:depo")
-    int sumTravelCardDepo(LocalDate day, String depo);
+    Integer sumTravelCardDepo(LocalDate day, String depo);
 
 //    @Query(nativeQuery = true,
 //            value = "select sum(t.price) from tickets t " +

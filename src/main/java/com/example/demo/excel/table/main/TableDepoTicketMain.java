@@ -8,6 +8,8 @@ import org.apache.poi.ss.usermodel.*;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -21,7 +23,13 @@ public class TableDepoTicketMain {
 
         CellStyle cellStyle = new SheetStyle().setStyle(workbook, 12, BorderStyle.NONE, false);
 
-        for (String track: trackService.getListTracks(day, depo)){
+        List<String> listTracks = trackService.getListTracks(day, depo);
+
+        Collections.sort(listTracks, (track1, track2) -> {
+            return Integer.parseInt(track1) - Integer.parseInt(track2);
+        });
+
+        for (String track: listTracks){
             Row row = sheet.createRow(indexRow++);
 
             //insert the cell by track
