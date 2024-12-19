@@ -6,7 +6,8 @@ public enum Field {
     AMOUNT("Сума"),
     TRACK("Маршрут"),
     DEPO("Депо"),
-    TRAVEL_CARD("Вид проїздного");
+    TRAVEL_CARD("Вид проїздного"),
+    DATE("День");
 
     private String fullName;
 

@@ -4,11 +4,9 @@ import java.time.LocalDate;
 
 public interface ISumTravelCardService {
 
-    int sumTravelCard(LocalDate day);
+    Integer sumTravelCard(LocalDate day);
 
     Integer sumTravelCardDepo(LocalDate day, String depo);
-
- //   int sumTravelCardByDepo(LocalDate day, String depo);
 
     Integer sumByTravelCardAndDay(LocalDate day, String travelCard);
 

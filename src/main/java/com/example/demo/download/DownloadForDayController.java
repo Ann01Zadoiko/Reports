@@ -30,7 +30,6 @@ public class DownloadForDayController {
     private final TicketService ticketService;
     private String downloadFile;
     private final WorkbookForDay workbookForDay;
- //   private final SheetMain sheetMain;
 
     //show a page and available dates
     @GetMapping("/")

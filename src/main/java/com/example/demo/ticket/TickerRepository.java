@@ -17,5 +17,14 @@ public interface TickerRepository extends JpaRepository<Ticket, Long> {
     @Query("SELECT DISTINCT t.day FROM Ticket t")
     List<LocalDate> findDistinctDays();
 
-
+//    @Query(nativeQuery = true,
+//            value = "SELECT distinct\n" +
+//                    " t.day\n" +
+//                    "FROM tickets t \n" +
+//                    "where EXTRACT(YEAR FROM t.day)=:year and EXTRACT(MONTH FROM t.day)=:month")
+    @Query("SELECT DISTINCT t.day " +
+        "FROM Ticket t " +
+        "WHERE FUNCTION('YEAR', t.day) = :year " +
+        "AND FUNCTION('MONTH', t.day) = :month")
+    List<LocalDate> findDaysOfMonth(String year, String month);
 }

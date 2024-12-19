@@ -27,4 +27,8 @@ public class TicketService {
         return tickerRepository.findDistinctDays();
     }
 
+    public List<LocalDate> getDaysOfMoth(String month, String year){
+        return tickerRepository.findDaysOfMonth(year, month);
+    }
+
 }

@@ -13,8 +13,9 @@ public class SumTravelCardService implements ISumTravelCardService{
 
     //sum of travel cards by day
     @Override
-    public int sumTravelCard(LocalDate day) {
-        return repository.sumTravelCard(day);
+    public Integer sumTravelCard(LocalDate day) {
+        Integer sum = repository.sumTravelCard(day);
+        return sum != null ? sum : 0;
     }
 
     //sum of travel cards by day and depo
@@ -23,11 +24,6 @@ public class SumTravelCardService implements ISumTravelCardService{
         Integer sum = repository.sumTravelCardDepo(day, depo);
         return sum != null ? sum : 0;
     }
-
-//    @Override
-//    public int sumTravelCardByDepo(LocalDate day, String depo) {
-//        return repository.sumTravelCardByDepo(day, depo);
-//    }
 
     //sum by type of travel card and day
     @Override

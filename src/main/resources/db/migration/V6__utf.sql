@@ -1,0 +1,4 @@
+ALTER DATABASE reports CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE tickets CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE tracks CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+

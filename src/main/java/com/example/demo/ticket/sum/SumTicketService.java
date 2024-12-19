@@ -14,20 +14,23 @@ public class SumTicketService implements ISumTicketsService {
 
     //sum of tickets by day
     @Override
-    public int sumTickets(LocalDate day) {
-        return repository.sumTickets(day);
+    public Integer sumTickets(LocalDate day) {
+        Integer sum = repository.sumTickets(day);
+        return sum != null ? sum : 0;
     }
 
     //sum of tickets by day and depo
     @Override
-    public int sumTicketsByDepo(LocalDate day, String depo) {
-        return repository.sumTicketsByDepo(day, depo);
+    public Integer sumTicketsByDepo(LocalDate day, String depo) {
+        Integer sum = repository.sumTicketsByDepo(day, depo);
+        return sum != null ? sum : 0;
     }
 
     //sum of tickets by day and the tram
     @Override
-    public int sumTicketsByTram(LocalDate day, Tram tram) {
-        return repository.sumTicketsByTram(day, tram.getDepo(), tram.getNumberOfTram());
+    public Integer sumTicketsByTram(LocalDate day, Tram tram) {
+        Integer sum = repository.sumTicketsByTram(day, tram.getDepo(), tram.getNumberOfTram());
+        return sum != null ? sum : 0;
     }
 
     //sum of tickets by day, depo and track

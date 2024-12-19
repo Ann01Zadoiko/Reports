@@ -13,20 +13,20 @@ public interface SumTicketsRepository extends JpaRepository<Ticket, Long> {
 
     @Query(nativeQuery = true,
             value = "select sum(t.price) from tickets t where t.day =:day and t.price=15")
-    int sumTickets(LocalDate day);
+    Integer sumTickets(LocalDate day);
 
     @Query(nativeQuery = true,
             value = "select sum(t.price) from tickets t " +
                     "join trams tr on t.id_tram = tr.id " +
                     "where t.day = :day and t.price=15 and tr.depo = :depo")
-    int sumTicketsByDepo(LocalDate day, String depo);
+    Integer sumTicketsByDepo(LocalDate day, String depo);
 
     @Query(nativeQuery = true,
             value = "select sum(t.price) from tickets t " +
                     "join trams tr on t.id_tram=tr.id " +
                     "where t.day=:day and t.price=15 and tr.depo=:depo " +
                     "and tr.number_of_tram=:numberOfTram")
-    int sumTicketsByTram(LocalDate day, String depo, @Param("numberOfTram") String numberOfTram);
+    Integer sumTicketsByTram(LocalDate day, String depo, @Param("numberOfTram") String numberOfTram);
 
     @Query(nativeQuery = true,
             value = "select sum(t.price) from tickets t join tracks tr on t.id_track = tr.id " +
