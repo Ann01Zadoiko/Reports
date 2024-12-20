@@ -3,6 +3,7 @@ package com.example.demo.excel.sheet;
 import com.example.demo.excel.constance.Field;
 import com.example.demo.excel.constance.TravelCard;
 import com.example.demo.excel.table.TableHeader;
+import com.example.demo.excel.table.bottom.TableDepoCardMonthBottom;
 import com.example.demo.excel.table.main.TableDepoCardMonthMain;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -16,6 +17,7 @@ import java.util.*;
 public class SheetTravelCardsDepoMonth {
 
     private final TableDepoCardMonthMain main;
+    private final TableDepoCardMonthBottom bottom;
 
     //create a sheet for travel card by depo
     public void createTable(Workbook workbook, String depo, String month, String year){
@@ -41,7 +43,6 @@ public class SheetTravelCardsDepoMonth {
         int rowMain = main.createMain(indexRow, workbook, sheet, depo, month, year);
 
         //amount for month
-        //use formule
-
+        bottom.createBottom(indexRow, workbook, sheet, depo, month, year);
     }
 }

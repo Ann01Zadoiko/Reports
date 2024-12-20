@@ -38,4 +38,16 @@ public class SumTravelCardService implements ISumTravelCardService{
         Integer sum = repository.sumByTravelCardAndDayAndDepo(day, travelCard, depo);
         return sum != null ? sum : 0;
     }
+
+    @Override
+    public Integer sumByTravelCardMonthDepo(String month, String year, String depo, String travelCard) {
+        Integer sum = repository.sumByTravelCardMonthDepo(month, year, depo, travelCard);
+        return sum != null ? sum : 0;
+    }
+
+    @Override
+    public Integer sumByMonthDepo(String month, String year, String depo) {
+        Integer sum = repository.sumByMonthDepo(month, year, depo);
+        return sum != null ? sum : 0;
+    }
 }

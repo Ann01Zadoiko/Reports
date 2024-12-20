@@ -14,4 +14,8 @@ public interface ISumTicketsService {
     Integer sumTicketsByTram(LocalDate day, Tram tram);
 
     Integer sumTicketsByDepoAndTrack(LocalDate day, String depo, String track);
+
+    Integer sumTicketsByDepoMonthTrack(String month,String year, String depo, String track);
+
+    Integer sumTicketsByDepoMonth(String month,String year, String depo);
 }

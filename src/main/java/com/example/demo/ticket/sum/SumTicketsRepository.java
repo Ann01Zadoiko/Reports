@@ -37,4 +37,22 @@ public interface SumTicketsRepository extends JpaRepository<Ticket, Long> {
                     "(tr.time<t.time and tr.second_part=:track) )")
     Integer sumTicketsByDepoAndTrack(LocalDate day, String depo, String track);
 
+    @Query(nativeQuery = true,
+            value = "SELECT sum(t.price) " +
+                    "FROM tickets t " +
+                    "join trams tr on t.id_tram=tr.id " +
+                    "join tracks tc on t.id_track=tc.id " +
+                    "where EXTRACT(YEAR FROM t.day)=:year and EXTRACT(MONTH FROM t.day)=:year " +
+                    "and t.price=15 and tr.depo=:depo and tc.first_part=:track")
+    Integer sumTicketsByDepoMonthTrack(String month,String year, String depo, String track);
+
+    @Query(nativeQuery = true,
+            value = "SELECT sum(t.price) " +
+                    "FROM tickets t " +
+                    "join trams tr on t.id_tram=tr.id " +
+                    "join tracks tc on t.id_track=tc.id " +
+                    "where EXTRACT(YEAR FROM t.day)=:year and EXTRACT(MONTH FROM t.day)=:year " +
+                    "and t.price=15 and tr.depo=:depo")
+    Integer sumTicketsByDepoMonth(String month,String year, String depo);
+
 }

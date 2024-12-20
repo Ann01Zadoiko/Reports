@@ -1,20 +1,18 @@
 package com.example.demo.excel.constance;
 
-public enum TrackDepo1 {
+public enum TrackDepoTroll {
+    TR2("2"),
     TR3("3"),
-    TR5("5"),
+    TR7("7"),
+    TR8("8"),
+    TR8H("8Н"),
+    TR9("9"),
     TR10("10"),
-    TR11("11"),
-    TR13("13"),
-    TR17("17"),
-    TR18("18"),
-    TR26("26"),
-    TR27("27"),
-    TR28("28");
+    TR12("12");
 
     private String track;
 
-    TrackDepo1(String track){
+    TrackDepoTroll(String track){
         this.track = track;
     }
 

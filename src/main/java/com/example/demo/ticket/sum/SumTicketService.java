@@ -39,4 +39,16 @@ public class SumTicketService implements ISumTicketsService {
         Integer sum = repository.sumTicketsByDepoAndTrack(day, depo, track);
         return sum != null ? sum : 0;
     }
+
+    @Override
+    public Integer sumTicketsByDepoMonthTrack(String month, String year, String depo, String track) {
+        Integer sum = repository.sumTicketsByDepoMonthTrack(month, year, depo, track);
+        return sum != null ? sum : 0;
+    }
+
+    @Override
+    public Integer sumTicketsByDepoMonth(String month, String year, String depo) {
+        Integer sum = repository.sumTicketsByDepoMonth(month, year, depo);
+        return sum != null ? sum : 0;
+    }
 }

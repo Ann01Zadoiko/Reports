@@ -30,4 +30,24 @@ public interface SumTravelCardRepository extends JpaRepository<Ticket, Long> {
                     "join trams tr on t.id_tram=tr.id " +
                     "where t.day=:day and t.travel_card=:travelCard and tr.depo=:depo")
     Integer sumByTravelCardAndDayAndDepo(LocalDate day, String travelCard, String depo);
+
+    @Query(nativeQuery = true,
+            value = "select sum(t.price) " +
+                    "from tickets t " +
+                    "join tracks tr on t.id_track=tr.id " +
+                    "join trams tm on t.id_tram=tm.id " +
+                    "where extract(year from t.day)=:year and extract(month from t.day)=:month and " +
+                    "tm.depo==:depo and t.travel_card==:travelCard")
+    Integer sumByTravelCardMonthDepo(String month, String year, String depo, String travelCard);
+
+    @Query(nativeQuery = true,
+            value = "select sum(t.price) " +
+                    "from tickets t " +
+                    "join tracks tr on t.id_track=tr.id " +
+                    "join trams tm on t.id_tram=tm.id " +
+                    "where extract(year from t.day)=:year and extract(month from t.day)=:month and " +
+                    "tm.depo==:depo and t.price>15")
+    Integer sumByMonthDepo(String month, String year, String depo);
+
+
 }

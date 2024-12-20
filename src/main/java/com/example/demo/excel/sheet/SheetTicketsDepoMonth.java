@@ -3,9 +3,9 @@ package com.example.demo.excel.sheet;
 import com.example.demo.excel.constance.Field;
 import com.example.demo.excel.constance.TrackDepo1;
 import com.example.demo.excel.table.TableHeader;
+import com.example.demo.excel.table.bottom.TableDepoTicketMonthBottom;
 import com.example.demo.excel.table.main.TableDepoTicketMonthMain;
-import com.example.demo.ticket.TicketService;
-import com.example.demo.track.TrackService;
+
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -20,8 +20,7 @@ import java.util.List;
 public class SheetTicketsDepoMonth {
 
     private final TableDepoTicketMonthMain main;
-    private final TicketService ticketService;
-    private final TrackService trackService;
+    private final TableDepoTicketMonthBottom bottom;
 
     //create a sheet for travel card by depo
     public void createTable(Workbook workbook, String depo, String month, String year){
@@ -49,7 +48,7 @@ public class SheetTicketsDepoMonth {
         int rowMain = main.createMain(indexRow, workbook, sheet, depo, month, year);
 
         //amount for month
-        //use formule
+        bottom.createBottom(rowMain, workbook, sheet, depo, month, year);
 
 
     }
