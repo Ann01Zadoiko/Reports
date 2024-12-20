@@ -28,7 +28,7 @@ public class WorkbookForMonth {
     //create workbook
     public String createWorkbook(String month, String year, String depo) throws IOException {
         //create file in reports
-        File file = new TableFile().createFileForMonth(month, year, depo);
+        File file = new TableFile().createFileForMonth(month, year);
 
         //create workbook
         try (Workbook workbook = new XSSFWorkbook();

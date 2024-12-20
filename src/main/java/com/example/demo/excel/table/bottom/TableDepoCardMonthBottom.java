@@ -33,7 +33,7 @@ public class TableDepoCardMonthBottom {
         }
 
         //insert the cell by sum
-        amountCell = amountRow.createCell(2);
+        amountCell = amountRow.createCell(i);
         amountCell.setCellValue(sumTravelCardService.sumByMonthDepo(month, year, depo));
         amountCell.setCellStyle(cellStyle);
     }

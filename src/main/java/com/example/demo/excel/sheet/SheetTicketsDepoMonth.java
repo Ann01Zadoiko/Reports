@@ -35,7 +35,7 @@ public class SheetTicketsDepoMonth {
 
 
         //name of the sheet
-        Sheet sheet = workbook.createSheet("За " + month + "." + year);
+        Sheet sheet = workbook.createSheet("За " + month + "." + year + " одноразові квитки");
         //  sheet.setColumnWidth(0, 10000);
         //  sheet.setColumnWidth(1, 6000);
 

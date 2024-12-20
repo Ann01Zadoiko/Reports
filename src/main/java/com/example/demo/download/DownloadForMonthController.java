@@ -52,10 +52,10 @@ public class DownloadForMonthController {
     //download a file in directory (downloaded)
     @GetMapping("/download")
     public ResponseEntity<Resource> downloadFile(HttpServletResponse response) {
-
-        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-        response.setHeader("Content-Disposition", "attachment; filename=\"example.xlsx\"");
-        response.setCharacterEncoding("UTF-8");
+//
+//        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+//        response.setHeader("Content-Disposition", "attachment; filename=\"example.xlsx\"");
+//        response.setCharacterEncoding("UTF-8");
 
         File file = new File(downloadFile);
         Resource resource = new FileSystemResource(file);

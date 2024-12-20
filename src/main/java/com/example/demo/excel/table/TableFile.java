@@ -15,8 +15,8 @@ public class TableFile {
         return new File(builder);
     }
 
-    public File createFileForMonth(String month, String year, String depo){
-        String string = "./src/main/resources/reports/" + depo + "_" + month + "." + year + ".xlsx";
+    public File createFileForMonth(String month, String year){
+        String string = "./src/main/resources/reports/" + month + "." + year + ".xlsx";
         return new File(string);
     }
 }

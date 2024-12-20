@@ -30,7 +30,7 @@ public class SheetTravelCardsDepoMonth {
         list.add(Field.AMOUNT.getFullName());
 
         //name of the sheet
-        Sheet sheet = workbook.createSheet("За " + month + "." + year + " qaqa");
+        Sheet sheet = workbook.createSheet("За " + month + "." + year + " проїздні");
       //  sheet.setColumnWidth(0, 10000);
       //  sheet.setColumnWidth(1, 6000);
 
@@ -43,6 +43,6 @@ public class SheetTravelCardsDepoMonth {
         int rowMain = main.createMain(indexRow, workbook, sheet, depo, month, year);
 
         //amount for month
-        bottom.createBottom(indexRow, workbook, sheet, depo, month, year);
+        bottom.createBottom(rowMain, workbook, sheet, depo, month, year);
     }
 }
