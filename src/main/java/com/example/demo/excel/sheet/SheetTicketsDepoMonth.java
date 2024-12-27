@@ -1,7 +1,6 @@
 package com.example.demo.excel.sheet;
 
-import com.example.demo.excel.constance.Field;
-import com.example.demo.excel.constance.TrackDepo1;
+import com.example.demo.excel.constance.*;
 import com.example.demo.excel.table.TableHeader;
 import com.example.demo.excel.table.bottom.TableDepoTicketMonthBottom;
 import com.example.demo.excel.table.main.TableDepoTicketMonthMain;
@@ -25,8 +24,20 @@ public class SheetTicketsDepoMonth {
     //create a sheet for travel card by depo
     public void createTable(Workbook workbook, String depo, String month, String year){
 
-        ArrayList<String> strings = new ArrayList<>(Arrays.stream(TrackDepo1.values()).map(TrackDepo1::getTrack).toList());
+        ArrayList<String> strings = null;
 
+        if (depo.equals(Depo.TRAM_1.getFullName())){
+            strings = new ArrayList<>(Arrays.stream(TrackDepo1.values()).map(TrackDepo1::getTrack).toList());
+        }
+
+        if (depo.equals(Depo.TRAM_2.getFullName())){
+            strings = new ArrayList<>(Arrays.stream(TrackDepo2.values()).map(TrackDepo2::getTrack).toList());
+        }
+
+        if (depo.equals(Depo.TROLL.getFullName())){
+            strings = new ArrayList<>(Arrays.stream(TrackDepoTroll.values()).map(TrackDepoTroll::getTrack).toList());
+        }
+        
         //date, tracks, amount
         List<String> list = new ArrayList<>();
         list.add(Field.DATE.getFullName());

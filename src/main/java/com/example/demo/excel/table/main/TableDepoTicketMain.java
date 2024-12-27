@@ -1,5 +1,9 @@
 package com.example.demo.excel.table.main;
 
+import com.example.demo.excel.constance.Depo;
+import com.example.demo.excel.constance.TrackDepo1;
+import com.example.demo.excel.constance.TrackDepo2;
+import com.example.demo.excel.constance.TrackDepoTroll;
 import com.example.demo.excel.style.SheetStyle;
 import com.example.demo.ticket.sum.SumTicketService;
 import com.example.demo.track.TrackService;
@@ -8,8 +12,8 @@ import org.apache.poi.ss.usermodel.*;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.Collections;
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 @Service
 @RequiredArgsConstructor
@@ -23,11 +27,19 @@ public class TableDepoTicketMain {
 
         CellStyle cellStyle = new SheetStyle().setStyle(workbook, 12, BorderStyle.NONE, false);
 
-        List<String> listTracks = trackService.getListTracks(day, depo);
+        ArrayList<String> listTracks = null;
 
-        Collections.sort(listTracks, (track1, track2) -> {
-            return Integer.parseInt(track1) - Integer.parseInt(track2);
-        });
+        if (depo.equals(Depo.TRAM_1.getFullName())){
+            listTracks = new ArrayList<>(Arrays.stream(TrackDepo1.values()).map(TrackDepo1::getTrack).toList());
+        }
+
+        if (depo.equals(Depo.TRAM_2.getFullName())){
+            listTracks = new ArrayList<>(Arrays.stream(TrackDepo2.values()).map(TrackDepo2::getTrack).toList());
+        }
+
+        if (depo.equals(Depo.TROLL.getFullName())){
+            listTracks = new ArrayList<>(Arrays.stream(TrackDepoTroll.values()).map(TrackDepoTroll::getTrack).toList());
+        }
 
         for (String track: listTracks){
             Row row = sheet.createRow(indexRow++);
