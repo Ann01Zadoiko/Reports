@@ -82,7 +82,7 @@ public class TrackController {
         }
 
         trackService.add(track);
-        return "redirect:/v1/tracks";
+        return "redirect:/v1/tracks/add?success"; //?success
     }
 
 }
