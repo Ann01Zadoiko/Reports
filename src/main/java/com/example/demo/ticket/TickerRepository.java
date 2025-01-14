@@ -1,6 +1,7 @@
 package com.example.demo.ticket;
 
 
+import com.example.demo.tram.Tram;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -17,14 +18,18 @@ public interface TickerRepository extends JpaRepository<Ticket, Long> {
     @Query("SELECT DISTINCT t.day FROM Ticket t")
     List<LocalDate> findDistinctDays();
 
-//    @Query(nativeQuery = true,
-//            value = "SELECT distinct\n" +
-//                    " t.day\n" +
-//                    "FROM tickets t \n" +
-//                    "where EXTRACT(YEAR FROM t.day)=:year and EXTRACT(MONTH FROM t.day)=:month")
     @Query("SELECT DISTINCT t.day " +
         "FROM Ticket t " +
         "WHERE FUNCTION('YEAR', t.day) = :year " +
         "AND FUNCTION('MONTH', t.day) = :month")
     List<LocalDate> findDaysOfMonth(String year, String month);
+
+    @Query("SELECT DISTINCT tm " +
+            "FROM Ticket t " +
+            "JOIN t.tram tm " +
+            "WHERE tm.depo = :depo " +
+            "  AND t.day = :day " +
+            "  AND t.price = 15 " +
+            "  AND t.track IS NULL")
+    List<Tram> findListOfTramWithoutTrack(LocalDate day, String depo);
 }

@@ -4,6 +4,7 @@ import com.example.demo.ticket.Ticket;
 import com.example.demo.ticket.TicketService;
 import com.example.demo.track.Track;
 import com.example.demo.track.TrackService;
+import com.example.demo.tram.Tram;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -35,4 +36,5 @@ public class Combine implements ICombine{
         }
         log.info("Tracks have added to tickets");
     }
+
 }

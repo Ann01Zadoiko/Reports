@@ -1,7 +1,10 @@
 package com.example.demo.track;
 
 
+import com.example.demo.combine.Combine;
+import com.example.demo.excel.constance.Depo;
 import com.example.demo.importData.ImportTracks;
+import com.example.demo.ticket.TicketService;
 import com.example.demo.tram.Tram;
 import com.example.demo.tram.TramService;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
@@ -23,6 +27,8 @@ public class TrackController {
     private final ImportTracks importTracks;
     private final TrackService trackService;
     private final TramService tramService;
+    private final TicketService ticketService;
+    private final Combine combine;
 
     //show a page for uploading a file
     @GetMapping
@@ -83,6 +89,23 @@ public class TrackController {
 
         trackService.add(track);
         return "redirect:/v1/tracks/add?success"; //?success
+    }
+
+    @GetMapping("/check")
+    public String showCheck(Model model){
+
+
+        return "tracks/check";
+    }
+
+    @PostMapping("/check")
+    public String getListOfTramsWithoutTrack(@RequestParam("depo") String depo,
+                                             @RequestParam("day") LocalDate day,
+                                             Model model){
+
+        combine.combineTrackAndTicketsByDay(day);
+        model.addAttribute("trams", ticketService.findListOfTramWithoutTrack(day, depo));
+        return "tracks/check";
     }
 
 }
