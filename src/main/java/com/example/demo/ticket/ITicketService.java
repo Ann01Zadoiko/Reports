@@ -16,4 +16,6 @@ public interface ITicketService {
     List<LocalDate> getDaysOfMoth(String month, String year);
 
     List<Tram> findListOfTramWithoutTrack(LocalDate day, String depo);
+
+    List<Tram> findTramsByDayAndDepo(LocalDate day, String depo);
 }

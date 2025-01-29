@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -38,6 +39,11 @@ public class TrackService implements ITrackService{
         return trackRepository.listTracks(day, depo);
     }
 
+    @Override
+    public void addAll(List<Track> tracks) {
+        trackRepository.saveAll(tracks);
+    }
+
     public List<Object[]> getDayAndDepo() {
         return trackRepository.findDistinctDayAndDepo();
     }
@@ -49,6 +55,18 @@ public class TrackService implements ITrackService{
     @Transactional
     public void deleteById(Long id){
         trackRepository.deleteById(id);
+    }
+
+    public void save(TrackDTO trackDTO) {
+        Track track = new Track();
+        track.setId(trackDTO.getTramId());
+        track.setDay(trackDTO.getDay());
+        track.setFirstPart(trackDTO.getTrack1());
+        track.setTime(trackDTO.getTime());
+        track.setSecondPart(trackDTO.getTrack2());
+        track.setTram(trackDTO.getTram());
+
+        trackRepository.save(track);
     }
 
 }

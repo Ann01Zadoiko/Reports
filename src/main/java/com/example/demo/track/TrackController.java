@@ -12,11 +12,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+        import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -74,7 +74,7 @@ public class TrackController {
                        @RequestParam("firstPart") String firstPart,
                        @RequestParam(value = "time", required = false)  @DateTimeFormat(pattern = "HH:mm") LocalTime time,
                        @RequestParam("secondPart") String secondPart
-                       ){
+    ){
 
         Tram tram = tramService.getByDepoAndNumberOfTram(depo, numberOfTram);
         Track track = new Track();
@@ -93,8 +93,6 @@ public class TrackController {
 
     @GetMapping("/check")
     public String showCheck(Model model){
-
-
         return "tracks/check";
     }
 
@@ -106,6 +104,40 @@ public class TrackController {
         combine.combineTrackAndTicketsByDay(day);
         model.addAttribute("trams", ticketService.findListOfTramWithoutTrack(day, depo));
         return "tracks/check";
+    }
+
+
+    @GetMapping("/addMultiple")
+    public String showDepoAndDateForm() {
+        return "tracks/addMultiple"; // Страница с формой для выбора депо и даты
+    }
+
+    @PostMapping("/addMultiple")
+    public String showTrackForm(@RequestParam("day") LocalDate day,
+                                @RequestParam("depo") String depo,
+                                Model model) {
+        // Получаем список трамваев по дню и депо
+        List<Tram> trams = ticketService.findTramsByDayAndDepo(day, depo);
+        model.addAttribute("trams", trams);
+        model.addAttribute("day", day);
+        model.addAttribute("depo", depo);
+        return "tracks/fill.html"; // Страница с таблицей
+    }
+    @PostMapping("/saveMultiple")
+    public String saveTracks(@RequestParam("day") LocalDate day,
+            @RequestParam("depo") String depo,
+            @ModelAttribute TrackForm trackForm) {
+        List<TrackDTO> tracks = trackForm.getTracks();
+
+        for (TrackDTO track : tracks) {
+            if (track.getTrack1() == null || track.getTrack1().isEmpty()) {
+                throw new IllegalArgumentException("Track 1 is required!");
+            }
+
+            trackService.save(track);
+        }
+
+        return "redirect:v1/tracks/saveMultiple?success";
     }
 
 }

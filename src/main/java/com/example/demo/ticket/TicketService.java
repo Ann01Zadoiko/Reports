@@ -40,4 +40,9 @@ public class TicketService implements ITicketService{
     public List<Tram> findListOfTramWithoutTrack(LocalDate day, String depo){
         return tickerRepository.findListOfTramWithoutTrack(day, depo);
     }
+
+    @Override
+    public List<Tram> findTramsByDayAndDepo(LocalDate day, String depo) {
+        return tickerRepository.findTramsByDayAndDepo(day, depo);
+    }
 }

@@ -12,4 +12,6 @@ public interface ITrackService {
     Track getByDayAndIdTram(LocalDate day, Long id);
 
     List<String> getListTracks(LocalDate day, String depo);
+
+    void addAll(List<Track> tracks);
 }
