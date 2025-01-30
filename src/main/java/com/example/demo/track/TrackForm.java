@@ -3,13 +3,13 @@ package com.example.demo.track;
 import java.util.List;
 
 public class TrackForm {
-    private List<TrackDTO> tracks;
+    private List<Track> tracks;
 
-    public List<TrackDTO> getTracks() {
+    public List<Track> getTracks() {
         return tracks;
     }
 
-    public void setTracks(List<TrackDTO> tracks) {
+    public void setTracks(List<Track> tracks) {
         this.tracks = tracks;
     }
 }

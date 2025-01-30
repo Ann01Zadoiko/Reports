@@ -46,9 +46,9 @@
 <div class="my-5">
     <div class="mx-auto w-25 " style="max-width:100%;">
         <div class="container">
-            <form action="/v1/tracks/saveMultiple" method="post">
-                <input type="hidden" name="day" value="${day}">
-                <input type="hidden" name="depo" value="${depo}">
+            <form th:action="@{/v1/tracks/saveMultiple}" method="post">
+                <input type="hidden" th:name="day" th:value="${day}">
+                <input type="hidden" th:name="depo" th:value="${depo}">
                 <table>
                     <thead>
                     <tr>
@@ -56,20 +56,21 @@
                         <th>Depo</th>
                         <th>Вагон</th>
                         <th>Маршрут</th>
-                        <th>Година переходу на інший маршрут</th>
+                        <th>Година переходу</th>
                         <th>Додатковий маршрут</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="tram, iterStat : ${trams}">
-                        <td name="day" value="${day}" title="${day}"> </td>
-                        <td name="depo" value="${depo}" title="${depo}"></td>
-
-                        <td th:text="${tram.numberOfTram}"></td>
-                        <input type="hidden" th:name="'tracks[' + ${iterStat.index} + '].tramId'" th:value="${tram.id}">
-                        <td><input type="text" th:name="'tracks[' + ${iterStat.index} + '].track1'" required></td>
-                        <td><input type="time" th:name="'tracks[' + ${iterStat.index} + '].time'" ></td>
-                        <td><input type="text" th:name="'tracks[' + ${iterStat.index} + '].track2'" ></td>
+                    <tr th:each="track, iter : ${tracks}">
+                        <td th:text="${day}"></td>
+                        <td th:text="${depo}"></td>
+                        <td>
+                            <input type="hidden" th:name="numberOfTram" th:value="${track.tram.numberOfTram}">
+                            <span th:text="${track.tram.numberOfTram}"></span>
+                        </td>
+                        <td><input type="text" th:name="firstPart" required></td>
+                        <td><input type="time" th:name="time"></td>
+                        <td><input type="text" th:name="secondPart"></td>
                     </tr>
                     </tbody>
                 </table>

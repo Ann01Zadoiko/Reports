@@ -18,6 +18,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/v1/tracks")
@@ -109,35 +110,60 @@ public class TrackController {
 
     @GetMapping("/addMultiple")
     public String showDepoAndDateForm() {
-        return "tracks/addMultiple"; // Страница с формой для выбора депо и даты
+        return "tracks/addMultiple";
     }
 
     @PostMapping("/addMultiple")
     public String showTrackForm(@RequestParam("day") LocalDate day,
                                 @RequestParam("depo") String depo,
                                 Model model) {
-        // Получаем список трамваев по дню и депо
         List<Tram> trams = ticketService.findTramsByDayAndDepo(day, depo);
-        model.addAttribute("trams", trams);
+        List<Track> tracks = trams.stream()
+                .map(tram -> {
+                    Track track = new Track();
+                    track.setSecondPart("");
+                    track.setTram(tram);
+                    track.setFirstPart("");
+                    track.setDay(day);
+                    track.setTime(null);
+                    return track;
+                })
+                .collect(Collectors.toList());
+
+        model.addAttribute("tracks", tracks);
         model.addAttribute("day", day);
         model.addAttribute("depo", depo);
-        return "tracks/fill.html"; // Страница с таблицей
+        return "tracks/fill";
     }
+
     @PostMapping("/saveMultiple")
     public String saveTracks(@RequestParam("day") LocalDate day,
-            @RequestParam("depo") String depo,
-            @ModelAttribute TrackForm trackForm) {
-        List<TrackDTO> tracks = trackForm.getTracks();
+                             @RequestParam("depo") String depo,
+                             @RequestParam("firstPart") List<String> firstParts,
+                             @RequestParam(value = "time", required = false) List<LocalTime> times,
+                             @RequestParam(value = "secondPart", required = false) List<String> secondParts,
+                             @RequestParam("numberOfTram") List<String> tramNumbers) {
 
-        for (TrackDTO track : tracks) {
-            if (track.getTrack1() == null || track.getTrack1().isEmpty()) {
-                throw new IllegalArgumentException("Track 1 is required!");
-            }
+        List<Track> tracks = new ArrayList<>();
+        for (int i = 0; i < tramNumbers.size(); i++) {
+            Tram tram = tramService.getByDepoAndNumberOfTram(depo,tramNumbers.get(i));
+            LocalTime time = (times != null && i < times.size()) ? times.get(i) : null;
+            String secondPart = (secondParts != null && i < secondParts.size()) ? secondParts.get(i) : null;
 
-            trackService.save(track);
+            Track track = new Track();
+            track.setTram(tram);
+            track.setTime(time);
+            track.setDay(day);
+            track.setFirstPart(firstParts.get(i));
+            track.setSecondPart(secondPart);
+            tracks.add(track);
         }
 
-        return "redirect:v1/tracks/saveMultiple?success";
+        trackService.addAll(tracks);
+        return "redirect:/v1/tracks/addMultiple?success";
     }
-
 }
+
+
+
+
