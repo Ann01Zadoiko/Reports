@@ -11,7 +11,7 @@
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-        <a class="navbar-brand" >Маршрути</a>
+        <a class="navbar-brand" >Маршрут</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -25,7 +25,7 @@
                         Маршрути
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item disabled" href="/v1/tracks">По Депо</a></li>
+                        <li><a class="dropdown-item disabled" href="/v1/tracks/addMultiple">По Депо</a></li>
                         <li><a class="dropdown-item" href="/v1/tracks/add">По вагону</a></li>
                     </ul>
                 </li>
@@ -46,7 +46,7 @@
             <form th:action="@{/v1/tracks/saveMultiple}" method="post">
                 <input type="hidden" th:name="day" th:value="${day}">
                 <input type="hidden" th:name="depo" th:value="${depo}">
-                <table>
+                <table class="table">
                     <thead>
                     <tr>
                         <th>Day</th>
@@ -76,6 +76,7 @@
             <div th:if="${success}" class="alert alert-success" role="alert">
                 Tracks successfully added!
             </div>
+
         </div>
 
 
