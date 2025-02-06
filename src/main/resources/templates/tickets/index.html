@@ -41,37 +41,43 @@
 </nav>
 
 <div class="my-5">
-    <div class="mx-auto w-25 " style="max-width:100%;">
+    <div class="mx-auto w-5 " style="max-width:100%;">
         <div class="container">
-            <h1 class="mb-5">Завантжити файл</h1>
-            <form th:action="@{/v1/tickets}" method="POST" enctype="multipart/form-data">
-                <div class="form-group mb-3">
-                    <label for="file" class="form-label">Оберіть файл:</label>
-                    <input class="form-control" type="file" id="file" name="file" required>
+            <div class="row">
+                <div class="col-12 col-md-8">
+                    <h1 class="mb-5">Завантжити файл</h1>
+                    <form th:action="@{/v1/tickets}" method="POST" enctype="multipart/form-data">
+                        <div class="form-group mb-3">
+                            <label for="file" class="form-label">Оберіть файл:</label>
+                            <input class="form-control" type="file" id="file" name="file" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary mb-3" id="uploadButton" onclick="showWaitMessage()">Завантажити</button>
+                        <div id="waitMessage" class="mt-2 mb-3" style="color: black;"></div> <!-- Место для сообщения -->
+                        <script>
+                            function showWaitMessage() {
+                                var messageDiv = document.getElementById("waitMessage");
+                                messageDiv.innerHTML = "<h3 class='text-warning'>Зачекайте 3-5 хв</h3>";
+                            }
+                        </script>
+                    </form>
+                    <div th:if="${param.success}">
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>Success!</strong> File has been uploaded
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </div>
+                    <div th:if="${param.error}">
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>Sorry!</strong> File has already existed
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-primary mb-3" id="uploadButton" onclick="showWaitMessage()">Завантажити</button>
-                <div id="waitMessage" class="mt-2 mb-3" style="color: black;"></div> <!-- Место для сообщения -->
-                <script>
-                    function showWaitMessage() {
-                        var messageDiv = document.getElementById("waitMessage");
-                        messageDiv.innerHTML = "<h3 class='text-warning'>Зачекайте 3-5 хв</h3>";
-                    }
-                </script>
-            </form>
-            <div th:if="${param.success}">
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>Success!</strong> File has been uploaded
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <div class="col-6 col-md-4">
+                    <h1 class="mb-3">Доступні дати:</h1>
+                    <p th:each="day : ${days}" th:text="${day}"></p>
                 </div>
             </div>
-            <div th:if="${param.error}">
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong>Sorry!</strong> File has already existed
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            </div>
-            <h1 class="mb-3">Доступні дати:</h1>
-            <p th:each="day : ${days}" th:text="${day}"></p>
         </div>
     </div>
 </div>

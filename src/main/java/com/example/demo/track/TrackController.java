@@ -160,7 +160,7 @@ public class TrackController {
         }
 
         trackService.addAll(tracks);
-        return "redirect:/v1/tracks/addMultiple?success";
+        return "redirect:/v1/tracks/saveMultiple?success";
     }
 }
 

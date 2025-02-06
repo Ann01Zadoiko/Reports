@@ -44,27 +44,32 @@
 </nav>
 
 <div class="my-5">
-    <div class="mx-auto w-25 " style="max-width:100%;">
+    <div class="mx-auto w-5 " style="max-width:100%;">
         <div class="container">
-            <h1 class="mb-5">Скачати файл</h1>
-            <form th:action="@{/v1/reports/}" method="POST" enctype="multipart/form-data">
-                <div class="form-group mb-3">
-                    <label for="day" class="form-label">День:</label>
-                    <input type="date" id="day" name="day" class="form-control">
+            <div class="row">
+                <div class="col-12 col-md-8">
+                    <h1 class="mb-5">Скачати файл</h1>
+                    <form th:action="@{/v1/reports/}" method="POST" enctype="multipart/form-data">
+                        <div class="form-group mb-3">
+                            <label for="day" class="form-label">День:</label>
+                            <input type="date" id="day" name="day" class="form-control">
+                        </div>
+                        <!--                <button type="submit" class="btn btn-primary mb-5">Скачати</button>-->
+                        <button type="submit" class="btn btn-primary mb-3" id="uploadButton" onclick="showWaitMessage()">Скачати</button>
+                        <div id="waitMessage" class="mt-2 mb-3" style="color: black;"></div> <!-- Место для сообщения -->
+                        <script>
+                            function showWaitMessage() {
+                                var messageDiv = document.getElementById("waitMessage");
+                                messageDiv.innerHTML = "<h3 class='text-warning'>Зачекайте 3-5 хв</h3>";
+                            }
+                        </script>
+                    </form>
                 </div>
-<!--                <button type="submit" class="btn btn-primary mb-5">Скачати</button>-->
-                <button type="submit" class="btn btn-primary mb-3" id="uploadButton" onclick="showWaitMessage()">Скачати</button>
-                <div id="waitMessage" class="mt-2 mb-3" style="color: black;"></div> <!-- Место для сообщения -->
-                <script>
-                    function showWaitMessage() {
-                        var messageDiv = document.getElementById("waitMessage");
-                        messageDiv.innerHTML = "<h3 class='text-warning'>Зачекайте 3-5 хв</h3>";
-                    }
-                </script>
-            </form>
-
-            <h3 class="mb-3">Доступні дати з реєстру Привата:</h3>
-            <p th:each="day : ${days}" th:text="${day}"></p>
+                <div class="col-6 col-md-4">
+                    <h3 class="mb-3">Доступні дати з реєстру Привата:</h3>
+                    <p th:each="day : ${days}" th:text="${day}"></p>
+                </div>
+            </div>
         </div>
     </div>
 </div>
