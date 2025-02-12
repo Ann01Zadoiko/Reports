@@ -49,9 +49,15 @@ public class DownloadForDayController {
     @SneakyThrows
     @PostMapping("/")
     public String download(@RequestParam("day") LocalDate day){
-        downloadFile = workbookForDay.createWorkbook(day);
+        for (LocalDate date: ticketService.getLocalDate()){
+            if (date.equals(day)){
+                downloadFile = workbookForDay.createWorkbook(day);
 
-        return "redirect:/v1/reports/download";
+                return "redirect:/v1/reports/?download";
+            }
+        }
+
+        return "redirect:/v1/reports/?error";
     }
 
     //download a file in directory (downloaded)

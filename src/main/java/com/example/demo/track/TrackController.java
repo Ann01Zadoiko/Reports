@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -89,7 +90,7 @@ public class TrackController {
         }
 
         trackService.add(track);
-        return "redirect:/v1/tracks/add?success"; //?success
+        return "redirect:/v1/tracks/add?success";
     }
 
     @GetMapping("/check")
@@ -109,7 +110,12 @@ public class TrackController {
 
 
     @GetMapping("/addMultiple")
-    public String showDepoAndDateForm() {
+    public String showDepoAndDateForm(Model model) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM(MMMM).yyyy");
+        List<LocalDate> days = ticketService.getLocalDate();
+        List<String> list = days.stream().map(date -> date.format(formatter)).toList();
+        model.addAttribute("days", list);
+
         return "tracks/addMultiple";
     }
 
@@ -117,24 +123,34 @@ public class TrackController {
     public String showTrackForm(@RequestParam("day") LocalDate day,
                                 @RequestParam("depo") String depo,
                                 Model model) {
-        List<Tram> trams = ticketService.findTramsByDayAndDepo(day, depo);
-        List<Track> tracks = trams.stream()
-                .map(tram -> {
-                    Track track = new Track();
-                    track.setSecondPart("");
-                    track.setTram(tram);
-                    track.setFirstPart("");
-                    track.setDay(day);
-                    track.setTime(null);
-                    return track;
-                })
-                .collect(Collectors.toList());
 
-        model.addAttribute("tracks", tracks);
-        model.addAttribute("day", day);
-        model.addAttribute("depo", depo);
-        return "tracks/fill";
+        for (LocalDate date: ticketService.getLocalDate()){
+            if (day.equals(date)){
+                List<Tram> trams = ticketService.findTramsByDayAndDepo(day, depo);
+                List<Track> tracks = trams.stream()
+                        .map(tram -> {
+                            Track track = new Track();
+                            track.setSecondPart("");
+                            track.setTram(tram);
+                            track.setFirstPart("");
+                            track.setDay(day);
+                            track.setTime(null);
+                            return track;
+                        })
+                        .collect(Collectors.toList());
+
+                model.addAttribute("tracks", tracks);
+                model.addAttribute("day", day);
+                model.addAttribute("depo", depo);
+
+                return "tracks/fill";
+            }
+        }
+
+        return "redirect:/v1/tracks/addMultiple?error";
     }
+
+
 
     @PostMapping("/saveMultiple")
     public String saveTracks(@RequestParam("day") LocalDate day,
@@ -143,6 +159,7 @@ public class TrackController {
                              @RequestParam(value = "time", required = false) List<LocalTime> times,
                              @RequestParam(value = "secondPart", required = false) List<String> secondParts,
                              @RequestParam("numberOfTram") List<String> tramNumbers) {
+
 
         List<Track> tracks = new ArrayList<>();
         for (int i = 0; i < tramNumbers.size(); i++) {
@@ -159,8 +176,7 @@ public class TrackController {
             tracks.add(track);
         }
 
-        trackService.addAll(tracks);
-        return "redirect:/v1/tracks/saveMultiple?success";
+        return "redirect:/v1/tracks/addMultiple?success";
     }
 }
 

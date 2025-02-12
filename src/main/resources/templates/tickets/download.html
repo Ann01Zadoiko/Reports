@@ -64,6 +64,12 @@
                             }
                         </script>
                     </form>
+                    <div th:if="${param.error}">
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>Sorry!</strong> Ви обрали невірну дату
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-6 col-md-4">
                     <h3 class="mb-3">Доступні дати з реєстру Привата:</h3>
