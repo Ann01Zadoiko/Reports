@@ -53,7 +53,7 @@ public class DownloadForDayController {
             if (date.equals(day)){
                 downloadFile = workbookForDay.createWorkbook(day);
 
-                return "redirect:/v1/reports/?download";
+                return "redirect:/v1/reports/download";
             }
         }
 

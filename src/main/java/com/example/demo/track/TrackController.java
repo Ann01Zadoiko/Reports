@@ -174,7 +174,10 @@ public class TrackController {
             track.setFirstPart(firstParts.get(i));
             track.setSecondPart(secondPart);
             tracks.add(track);
+
         }
+
+        trackService.addAll(tracks);
 
         return "redirect:/v1/tracks/addMultiple?success";
     }
