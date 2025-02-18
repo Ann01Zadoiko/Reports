@@ -4,6 +4,8 @@ import com.example.demo.combine.Combine;
 import com.example.demo.excel.constance.Depo;
 import com.example.demo.excel.workbook.WorkbookForDay;
 import com.example.demo.ticket.TicketService;
+import com.example.demo.track.Track;
+import com.example.demo.track.TrackService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.core.io.FileSystemResource;
@@ -32,6 +34,7 @@ public class DownloadForDayController {
     private final TicketService ticketService;
     private String downloadFile;
     private final WorkbookForDay workbookForDay;
+    private final TrackService trackService;
 
     //show a page and available dates
     @GetMapping("/")
@@ -42,6 +45,10 @@ public class DownloadForDayController {
         List<String> list = days.stream().map(date -> date.format(formatter)).toList();
 
         model.addAttribute("days", list);
+
+        // Получение повторяющихся записей
+        List<Track> duplicateTracks = trackService.findDuplicateTracksDetailed();
+        model.addAttribute("duplicateTracks", duplicateTracks);
         return "/tickets/download";
     }
 

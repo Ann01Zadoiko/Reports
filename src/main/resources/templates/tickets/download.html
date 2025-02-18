@@ -70,6 +70,19 @@
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     </div>
+
+                    <table class="table table-striped">
+                        <tbody>
+                        <tr th:each="track : ${duplicateTracks}">
+                            <td th:text="${track.tram.numberOfTram}"></td>
+                            <td th:text="${track.firstPart}"></td>
+                            <td th:text="${track.time}"></td>
+                            <td th:text="${track.secondPart}"></td>
+                            <td th:text="${track.day}"></td>
+                            <td><a th:href="@{/v1/tracks/delete/{id}(id=${track.id})}">Видалити</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
                 <div class="col-6 col-md-4">
                     <h3 class="mb-3">Доступні дати з реєстру Привата:</h3>
