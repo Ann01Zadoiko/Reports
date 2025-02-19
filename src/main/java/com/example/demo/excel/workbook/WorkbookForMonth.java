@@ -37,10 +37,15 @@ public class WorkbookForMonth {
             //add sheets of tickets by depo
             List<LocalDate> listOfDaysByMonth = ticketService.getDaysOfMoth(month, year);
             for (LocalDate day: listOfDaysByMonth){
+
+                System.out.println("Создаю таблицу для " + day);
                 sheetTicketsDepo.createTableSize(day, workbook, depo);
             }
 
-           //amount for a month tickets
+            System.out.println("Дни месяца: " + listOfDaysByMonth);
+
+
+            //amount for a month tickets
             sheetTicketsDepoMonth.createTable(workbook, depo, month, year);
            //amount for a month travel cards
             sheetTravelCardsDepoMonth.createTable(workbook, depo, month, year);

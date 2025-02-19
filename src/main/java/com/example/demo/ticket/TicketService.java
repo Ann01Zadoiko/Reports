@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -28,12 +29,16 @@ public class TicketService implements ITicketService{
     //get a unique list of tickets by day
     @Override
     public List<LocalDate> getLocalDate(){
-        return tickerRepository.findDistinctDays();
+        List<LocalDate> distinctDays = tickerRepository.findDistinctDays();// По возрастанию;
+        Collections.sort(distinctDays);
+        return distinctDays;
     }
 
     @Override
     public List<LocalDate> getDaysOfMoth(String month, String year){
-        return tickerRepository.findDaysOfMonth(year, month);
+        List<LocalDate> daysOfMonth = tickerRepository.findDaysOfMonth(Integer.parseInt(year), Integer.parseInt(month));
+        Collections.sort(daysOfMonth);
+        return daysOfMonth;
     }
 
     @Override

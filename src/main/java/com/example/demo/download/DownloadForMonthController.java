@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.io.File;
 
+
 @Controller
 @RequestMapping("/v1/month")
 public class DownloadForMonthController {
@@ -52,10 +53,6 @@ public class DownloadForMonthController {
     //download a file in directory (downloaded)
     @GetMapping("/download")
     public ResponseEntity<Resource> downloadFile(HttpServletResponse response) {
-//
-//        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-//        response.setHeader("Content-Disposition", "attachment; filename=\"example.xlsx\"");
-//        response.setCharacterEncoding("UTF-8");
 
         File file = new File(downloadFile);
         Resource resource = new FileSystemResource(file);
@@ -66,9 +63,6 @@ public class DownloadForMonthController {
 
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getName() + "\"");
-
-        //success
-        //error
 
         return ResponseEntity.ok()
                 .headers(headers)

@@ -61,7 +61,6 @@ public class SheetTicketsDepoMonth {
         //amount for month
         bottom.createBottom(rowMain, workbook, sheet, depo, month, year);
 
-
     }
 
 }

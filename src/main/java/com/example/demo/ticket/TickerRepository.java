@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -24,7 +23,7 @@ public interface TickerRepository extends JpaRepository<Ticket, Long> {
         "FROM Ticket t " +
         "WHERE FUNCTION('YEAR', t.day) = :year " +
         "AND FUNCTION('MONTH', t.day) = :month")
-    List<LocalDate> findDaysOfMonth(String year, String month);
+    List<LocalDate> findDaysOfMonth(@Param("year") int year, @Param("month") int month);
 
     @Query("SELECT DISTINCT tm " +
             "FROM Ticket t " +
@@ -35,11 +34,7 @@ public interface TickerRepository extends JpaRepository<Ticket, Long> {
             "  AND t.track IS NULL")
     List<Tram> findListOfTramWithoutTrack(LocalDate day, String depo);
 
-//    @Query(nativeQuery = true,
-//            value = "select distinct tr.id, tr.number_of_tram, tr.depo  " +
-//                    "from tickets t " +
-//                    "join trams tr on t.id_tram=tr.id " +
-//                    "where t.price=15 and tr.depo=:depo and t.day=:day")
+
     @Query("SELECT DISTINCT t.tram FROM Ticket t " +
         "WHERE t.price = 15 AND t.tram.depo = :depo AND t.day = :day")
     List<Tram> findTramsByDayAndDepo(@Param("day") LocalDate day,@Param("depo") String depo);
