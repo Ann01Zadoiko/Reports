@@ -82,11 +82,11 @@ public class TrackController {
         Track track = new Track();
         track.setDay(day);
         track.setTram(tram);
-        track.setFirstPart(firstPart);
+        track.setFirstPart(firstPart.toUpperCase());
 
         if (time != null){
             track.setTime(time);
-            track.setSecondPart(secondPart);
+            track.setSecondPart(secondPart.toUpperCase());
         }
 
         trackService.add(track);
